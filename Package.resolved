@@ -1,0 +1,34 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "swift-custom-dump",
+        "repositoryURL": "https://github.com/pointfreeco/swift-custom-dump",
+        "state": {
+          "branch": null,
+          "revision": "1a2947d25d43e295c6f5e83f54696d590620b364",
+          "version": "0.1.3"
+        }
+      },
+      {
+        "package": "xctest-dynamic-overlay",
+        "repositoryURL": "https://github.com/pointfreeco/xctest-dynamic-overlay",
+        "state": {
+          "branch": null,
+          "revision": "50a70a9d3583fe228ce672e8923010c8df2deddd",
+          "version": "0.2.1"
+        }
+      },
+      {
+        "package": "XCTJSONKit",
+        "repositoryURL": "https://github.com/davdroman/XCTJSONKit",
+        "state": {
+          "branch": "main",
+          "revision": "373e362d3e0949c4871002e1ce258c050471cb33",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
