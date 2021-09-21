@@ -1,9 +1,25 @@
 import Foundation
 import PeriodDuration
 
-typealias Scenario = (String, Props?)
+struct Scenario {
+    typealias Input = String
+    typealias Output = ScenarioOutput
 
-struct Props {
+    /// Raw ISO 8601 input
+    let input: Input
+    /// Expected props computed from input
+    let output: Output?
+    /// A type for which the input and output is exactly the same both ways (encoding & decoding)
+    let strictForType: Any.Type?
+
+    init(_ input: Input, _ output: Output?, strictForType: Any.Type? = nil) {
+        self.input = input
+        self.output = output
+        self.strictForType = strictForType
+    }
+}
+
+struct ScenarioOutput {
     var years: Int? = nil
     var months: Int? = nil
     var days: Int? = nil
@@ -13,7 +29,7 @@ struct Props {
 }
 
 extension PeriodDuration {
-    init(props: Props) {
+    init(props: ScenarioOutput) {
         self.init(
             years: props.years,
             months: props.months,
@@ -26,7 +42,7 @@ extension PeriodDuration {
 }
 
 extension Period {
-    init(props: Props) {
+    init(props: ScenarioOutput) {
         self.init(
             years: props.years,
             months: props.months,
@@ -36,7 +52,7 @@ extension Period {
 }
 
 extension Duration {
-    init(props: Props) {
+    init(props: ScenarioOutput) {
         self.init(
             hours: props.hours,
             minutes: props.minutes,
@@ -47,138 +63,141 @@ extension Duration {
 
 let scenarios: [Scenario] = [
     // MARK: Full
-    ("YMWDTHMS", nil),
-    ("3YMWDTHMS", nil), // Y
-    ("Y3MWDTHMS", nil), // M
-    ("YM3WDTHMS", nil), // W
-    ("YMW3DTHMS", nil), // D
-    ("YMWDT3HMS", nil), // H
-    ("YMWDTH3MS", nil), // m
-    ("YMWDTHM3S", nil), // S
-    ("3Y3M3W3DT3H3M3S", nil), // YMWDHMS
+    .init("YMWDTHMS", nil),
+    .init("3YMWDTHMS", nil), // Y
+    .init("Y3MWDTHMS", nil), // M
+    .init("YM3WDTHMS", nil), // W
+    .init("YMW3DTHMS", nil), // D
+    .init("YMWDT3HMS", nil), // H
+    .init("YMWDTH3MS", nil), // m
+    .init("YMWDTHM3S", nil), // S
+    .init("3Y3M3W3DT3H3M3S", nil), // YMWDHMS
 
-    ("PYMWDTHMS", .init()),
-    ("P3YMWDTHMS", .init(years: 3)), // Y
-    ("PY3MWDTHMS", .init(months: 3)), // M
-    ("PYM3WDTHMS", .init(days: 21)), // W
-    ("PYMW3DTHMS", .init(days: 3)), // D
-    ("PYMWDT3HMS", .init(hours: 3)), // H
-    ("PYMWDTH3MS", .init(minutes: 3)), // m
-    ("PYMWDTHM3S", .init(seconds: 3)), // S
-    ("P3Y3M3W3DT3H3M3S", .init(years: 3, months: 3, days: 24, hours: 3, minutes: 3, seconds: 3)), // YMWDHMS
+    .init("PYMWDTHMS", .init()),
+    .init("P3YMWDTHMS", .init(years: 3)), // Y
+    .init("PY3MWDTHMS", .init(months: 3)), // M
+    .init("PYM3WDTHMS", .init(days: 21)), // W
+    .init("PYMW3DTHMS", .init(days: 3)), // D
+    .init("PYMWDT3HMS", .init(hours: 3)), // H
+    .init("PYMWDTH3MS", .init(minutes: 3)), // m
+    .init("PYMWDTHM3S", .init(seconds: 3)), // S
+    .init("P3Y3M3W3DT3H3M3S", .init(years: 3, months: 3, days: 24, hours: 3, minutes: 3, seconds: 3)), // YMWDHMS
+    .init("P3Y3M3DT3H3M3S", .init(years: 3, months: 3, days: 3, hours: 3, minutes: 3, seconds: 3), strictForType: PeriodDuration.self), // YMDHMS
 
     // MARK: Period Full
-    ("YMWD", nil),
-    ("3YMWD", nil), // Y
-    ("Y3MWD", nil), // M
-    ("YM3WD", nil), // W
-    ("YMW3D", nil), // D
-    ("3Y3MWD", nil), // YM
-    ("YM3W3D", nil), // WD
-    ("3YM3WD", nil), // YW
-    ("3YMW3D", nil), // YD
-    ("3Y3M3WD", nil), // YMW
-    ("Y3M3W3D", nil), // MWD
-    ("3Y3M3W3D", nil), // YMWD
+    .init("YMWD", nil),
+    .init("3YMWD", nil), // Y
+    .init("Y3MWD", nil), // M
+    .init("YM3WD", nil), // W
+    .init("YMW3D", nil), // D
+    .init("3Y3MWD", nil), // YM
+    .init("YM3W3D", nil), // WD
+    .init("3YM3WD", nil), // YW
+    .init("3YMW3D", nil), // YD
+    .init("3Y3M3WD", nil), // YMW
+    .init("Y3M3W3D", nil), // MWD
+    .init("3Y3M3W3D", nil), // YMWD
 
-    ("PYMWD", .init()),
-    ("P3YMWD", .init(years: 3)), // Y
-    ("PY3MWD", .init(months: 3)), // M
-    ("PYM3WD", .init(days: 21)), // W
-    ("PYMW3D", .init(days: 3)), // D
-    ("P3Y3MWD", .init(years: 3, months: 3)), // YM
-    ("PYM3W3D", .init(days: 24)), // WD
-    ("P3YM3WD", .init(years: 3, days: 21)), // YW
-    ("P3YMW3D", .init(years: 3, days: 3)), // YD
-    ("P3Y3M3WD", .init(years: 3, months: 3, days: 21)), // YMW
-    ("PY3M3W3D", .init(months: 3, days: 24)), // MWD
-    ("P3Y3M3W3D", .init(years: 3, months: 3, days: 24)), // YMWD
+    .init("PYMWD", .init()),
+    .init("P3YMWD", .init(years: 3)), // Y
+    .init("PY3MWD", .init(months: 3)), // M
+    .init("PYM3WD", .init(days: 21)), // W
+    .init("PYMW3D", .init(days: 3)), // D
+    .init("P3Y3MWD", .init(years: 3, months: 3)), // YM
+    .init("PYM3W3D", .init(days: 24)), // WD
+    .init("P3YM3WD", .init(years: 3, days: 21)), // YW
+    .init("P3YMW3D", .init(years: 3, days: 3)), // YD
+    .init("P3Y3M3WD", .init(years: 3, months: 3, days: 21)), // YMW
+    .init("PY3M3W3D", .init(months: 3, days: 24)), // MWD
+    .init("P3Y3M3W3D", .init(years: 3, months: 3, days: 24)), // YMWD
+    .init("P3Y3M3D", .init(years: 3, months: 3, days: 3), strictForType: Period.self), // YMD
 
     // MARK: Period Individual
-    ("Y", nil),
-    ("3Y", nil),
+    .init("Y", nil),
+    .init("3Y", nil),
 
-    ("PY", .init()),
-    ("P3Y", .init(years: 3)),
+    .init("PY", .init()),
+    .init("P3Y", .init(years: 3)),
 
-    ("M", nil),
-    ("3M", nil),
+    .init("M", nil),
+    .init("3M", nil),
 
-    ("PM", .init()),
-    ("P3M", .init(months: 3)),
+    .init("PM", .init()),
+    .init("P3M", .init(months: 3)),
 
-    ("W", nil),
-    ("3W", nil),
+    .init("W", nil),
+    .init("3W", nil),
 
-    ("PW", .init()),
-    ("P3W", .init(days: 21)),
+    .init("PW", .init()),
+    .init("P3W", .init(days: 21)),
 
-    ("D", nil),
-    ("3D", nil),
+    .init("D", nil),
+    .init("3D", nil),
 
-    ("PD", .init()),
-    ("P3D", .init(days: 3)),
+    .init("PD", .init()),
+    .init("P3D", .init(days: 3)),
 
     // MARK: Duration Full
-    ("THMS", nil),
-    ("T3HMS", nil), // H
-    ("TH3MS", nil), // M
-    ("THM3S", nil), // S
-    ("T3H3MS", nil), // HM
-    ("TH3M3S", nil), // MS
-    ("T3HM3S", nil), // HS
-    ("T3H3M3S", nil), // HMS
+    .init("THMS", nil),
+    .init("T3HMS", nil), // H
+    .init("TH3MS", nil), // M
+    .init("THM3S", nil), // S
+    .init("T3H3MS", nil), // HM
+    .init("TH3M3S", nil), // MS
+    .init("T3HM3S", nil), // HS
+    .init("T3H3M3S", nil), // HMS
 
-    ("PTHMS", .init()),
-    ("PT3HMS", .init(hours: 3)), // H
-    ("PTH3MS", .init(minutes: 3)), // M
-    ("PTHM3S", .init(seconds: 3)), // S
-    ("PT3H3MS", .init(hours: 3, minutes: 3)), // HM
-    ("PTH3M3S", .init(minutes: 3, seconds: 3)), // MS
-    ("PT3HM3S", .init(hours: 3, seconds: 3)), // HS
-    ("PT3H3M3S", .init(hours: 3, minutes: 3, seconds: 3)), // HMS
+    .init("PTHMS", .init()),
+    .init("PT3HMS", .init(hours: 3)), // H
+    .init("PTH3MS", .init(minutes: 3)), // M
+    .init("PTHM3S", .init(seconds: 3)), // S
+    .init("PT3H3MS", .init(hours: 3, minutes: 3)), // HM
+    .init("PTH3M3S", .init(minutes: 3, seconds: 3)), // MS
+    .init("PT3HM3S", .init(hours: 3, seconds: 3)), // HS
+    .init("PT3H3M3S", .init(hours: 3, minutes: 3, seconds: 3), strictForType: Duration.self), // HMS
 
     // MARK: Duration Individual
-    ("H", nil),
-    ("TH", nil),
-    ("3H", nil),
-    ("T3H", nil),
+    .init("H", nil),
+    .init("TH", nil),
+    .init("3H", nil),
+    .init("T3H", nil),
 
-    ("PTH", .init()),
-    ("PT3H", .init(hours: 3)),
+    .init("PT", .init(), strictForType: Duration.self),
+    .init("PTH", .init()),
+    .init("PT3H", .init(hours: 3), strictForType: Duration.self),
 
-    ("M", nil),
-    ("TM", nil),
-    ("3M", nil),
-    ("T3M", nil),
+    .init("M", nil),
+    .init("TM", nil),
+    .init("3M", nil),
+    .init("T3M", nil),
 
-    ("PTM", .init()),
-    ("PT3M", .init(minutes: 3)),
+    .init("PTM", .init()),
+    .init("PT3M", .init(minutes: 3), strictForType: Duration.self),
 
-    ("S", nil),
-    ("TS", nil),
-    ("3S", nil),
-    ("T3S", nil),
+    .init("S", nil),
+    .init("TS", nil),
+    .init("3S", nil),
+    .init("T3S", nil),
 
-    ("PTS", .init()),
-    ("PT3S", .init(seconds: 3)),
+    .init("PTS", .init()),
+    .init("PT3S", .init(seconds: 3), strictForType: Duration.self),
 
     // MARK: Edge Cases
-    ("", nil),
-    (" ", nil),
-    ("3", nil),
-    ("P3", nil),
-    ("T3", nil),
-    ("PT3", nil),
-    ("*", nil),
-    ("PT3H*", nil),
-    ("PT3.0H", nil),
-    ("PT3,2H", nil),
-    ("PT32_H", nil),
-    ("PT_32H", nil),
-    ("PT 32H", nil),
-    ("PT32 H", nil),
-    (" PT32H", nil),
-    ("PT32H ", nil),
-    (" PT32H ", nil),
+    .init("", nil),
+    .init(" ", nil),
+    .init("3", nil),
+    .init("P3", nil),
+    .init("T3", nil),
+    .init("PT3", nil),
+    .init("*", nil),
+    .init("PT3H*", nil),
+    .init("PT3.0H", nil),
+    .init("PT3,2H", nil),
+    .init("PT32_H", nil),
+    .init("PT_32H", nil),
+    .init("PT 32H", nil),
+    .init("PT32 H", nil),
+    .init(" PT32H", nil),
+    .init("PT32H ", nil),
+    .init(" PT32H ", nil),
 ]
