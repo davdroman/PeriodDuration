@@ -1,5 +1,8 @@
 import Foundation
 
+/// `PnYnMnWnDTnHnMnS`
+let validationRegex = #"^P(?:(\d*)Y)?(?:(\d*)M)?(?:(\d*)W)?(?:(\d*)D)?(?:T(?:(\d*)H)?(?:(\d*)M)?(?:(\d*)S)?)?$"#
+
 extension Optional where Wrapped: Numeric {
     var isNilOrZero: Bool {
         self == nil || self == .zero

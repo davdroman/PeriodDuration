@@ -42,8 +42,8 @@ extension Duration {
 }
 
 extension Duration {
-    public init?(rawValue: String) {
-        guard rawValue.range(of: PeriodDuration.validationRegex, options: .regularExpression) != nil else {
+    init?(rawValue: String) {
+        guard rawValue.range(of: validationRegex, options: .regularExpression) != nil else {
             return nil
         }
 

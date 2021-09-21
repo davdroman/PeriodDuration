@@ -77,9 +77,6 @@ extension PeriodDuration {
 }
 
 extension PeriodDuration {
-    /// `PnYnMnWnDTnHnMnS`
-    static let validationRegex = #"^P(?:(\d*)Y)?(?:(\d*)M)?(?:(\d*)W)?(?:(\d*)D)?(?:T(?:(\d*)H)?(?:(\d*)M)?(?:(\d*)S)?)?$"#
-
     init?(rawValue: String) {
         guard
             let period = Period(rawValue: rawValue),
