@@ -1,0 +1,38 @@
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - "**"
+  schedule:
+    - cron: '3 3 * * 2'  # 3:03 AM, every Tuesday
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  macOS:
+    name: ${{ matrix.platform }}
+    runs-on: macos-11
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - macOS
+          - iOS
+    steps:
+    - uses: actions/checkout@v2
+    - uses: mxcl/xcodebuild@v1
+      with:
+        swift: ~5.5
+        platform: ${{ matrix.platform }}
+        warnings-as-errors: true
+  linux:
+    runs-on: ubuntu-latest
+    container:
+      image: swiftlang/swift:nightly-5.5
+    steps:
+    - uses: actions/checkout@v2
+    - run: swift test --parallel -Xswiftc -warnings-as-errors
