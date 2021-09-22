@@ -30,7 +30,6 @@ jobs:
         platform: ${{ matrix.platform }}
         warnings-as-errors: true
   linux:
-    if: false # FIXME: error: cannot find type 'AttributedString' in scope
     runs-on: ubuntu-latest
     container:
       image: swiftlang/swift:nightly-5.5
