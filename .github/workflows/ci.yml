@@ -31,8 +31,14 @@ jobs:
         warnings-as-errors: true
   linux:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        swift:
+          - 5.4
+          - 5.5
     container:
-      image: swift:5.5
+      image: swift:${{ matrix.swift }}
     steps:
     - uses: actions/checkout@v2
     - run: swift test --parallel -Xswiftc -warnings-as-errors
