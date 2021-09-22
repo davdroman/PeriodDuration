@@ -29,7 +29,7 @@ extension Period {
         guard let _self = Self(rawValue: rawValue) else {
             throw DecodingError.dataCorruptedError(
                 in: container,
-                debugDescription: "Invalid Period rawValue '\(rawValue)'"
+                debugDescription: "Invalid Period rawValue \"\(rawValue)\""
             )
         }
         self = _self

@@ -1,9 +1,10 @@
 import Foundation
 import PeriodDuration
+import XCTJSONKit
 
 struct Scenario {
-    typealias Input = String
-    typealias Output = ScenarioOutput
+    typealias Input = JSONTree
+    typealias Output = Props
 
     /// Raw ISO 8601 input
     let input: Input
@@ -19,7 +20,7 @@ struct Scenario {
     }
 }
 
-struct ScenarioOutput {
+struct Props {
     var years: Int? = nil
     var months: Int? = nil
     var days: Int? = nil
@@ -29,7 +30,7 @@ struct ScenarioOutput {
 }
 
 extension PeriodDuration {
-    init(props: ScenarioOutput) {
+    init(props: Props) {
         self.init(
             years: props.years,
             months: props.months,
@@ -42,7 +43,7 @@ extension PeriodDuration {
 }
 
 extension Period {
-    init(props: ScenarioOutput) {
+    init(props: Props) {
         self.init(
             years: props.years,
             months: props.months,
@@ -52,7 +53,7 @@ extension Period {
 }
 
 extension Duration {
-    init(props: ScenarioOutput) {
+    init(props: Props) {
         self.init(
             hours: props.hours,
             minutes: props.minutes,
