@@ -32,7 +32,7 @@ jobs:
   linux:
     runs-on: ubuntu-latest
     container:
-      image: swiftlang/swift:nightly-5.5
+      image: swift:5.5
     steps:
     - uses: actions/checkout@v2
     - run: swift test --parallel -Xswiftc -warnings-as-errors
