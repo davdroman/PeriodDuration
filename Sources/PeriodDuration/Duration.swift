@@ -29,7 +29,7 @@ extension Duration {
         guard let _self = Self(rawValue: rawValue) else {
             throw DecodingError.dataCorruptedError(
                 in: container,
-                debugDescription: "Invalid Duration rawValue '\(rawValue)'"
+                debugDescription: "Invalid Duration rawValue \"\(rawValue)\""
             )
         }
         self = _self

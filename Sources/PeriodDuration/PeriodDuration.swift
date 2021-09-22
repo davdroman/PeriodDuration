@@ -64,7 +64,7 @@ extension PeriodDuration {
         guard let _self = Self(rawValue: rawValue) else {
             throw DecodingError.dataCorruptedError(
                 in: container,
-                debugDescription: "Invalid PeriodDuration rawValue '\(rawValue)'"
+                debugDescription: "Invalid PeriodDuration rawValue \"\(rawValue)\""
             )
         }
         self = _self
