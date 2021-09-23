@@ -5,9 +5,9 @@
         "package": "swift-custom-dump",
         "repositoryURL": "https://github.com/pointfreeco/swift-custom-dump",
         "state": {
-          "branch": "main",
-          "revision": "23801e4e8098509b738860d8e5fd4d97fd465e73",
-          "version": null
+          "branch": null,
+          "revision": "c2dd2c64b753dda592f5619303e02f741cd3e862",
+          "version": "0.2.0"
         }
       },
       {
@@ -24,7 +24,7 @@
         "repositoryURL": "https://github.com/davdroman/XCTJSONKit",
         "state": {
           "branch": "main",
-          "revision": "33892e75941ec9f26c81c7cd3a2a55e6f166a584",
+          "revision": "b9772e3b3a758343dc73d69b69ed19cefcdfae6e",
           "version": null
         }
       }

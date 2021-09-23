@@ -24,26 +24,26 @@ final class Tests: XCTestCase {
 
 private extension Tests {
     func assert<T>(
-        _ jsonTree: JSONTree,
+        _ json: JSON,
         _ codable: T?,
         identical: Bool,
         file: StaticString = #filePath,
         line: UInt = #line
     ) throws where T: Codable, T: Equatable {
-        let message = "rawValue: \(jsonTree)"
+        let message = "rawValue: \(json)"
         try XCTAssertJSONCoding(codable, message, file: file, line: line)
 
         if identical {
-            try XCTAssertJSONEncoding(codable, JSON(jsonTree))
+            try XCTAssertJSONEncoding(codable, json)
         }
 
         do {
-            try XCTAssertJSONDecoding(JSON(jsonTree), codable, message, file: file, line: line)
+            try XCTAssertJSONDecoding(json, codable, message, file: file, line: line)
         } catch let error as DecodingError where codable == nil {
             switch error {
             case .dataCorrupted(let context):
                 let type = "\(type(of: T.self))".prefix(while: { $0 != "." })
-                XCTAssertEqual(context.debugDescription, "Invalid \(type) rawValue \(jsonTree)", file: file, line: line)
+                XCTAssertEqual(context.debugDescription, "Invalid \(type) rawValue \(json)", file: file, line: line)
             default:
                 XCTFail("Unexpected `DecodingError` received: '\(error)' - \(message)", file: file, line: line)
             }

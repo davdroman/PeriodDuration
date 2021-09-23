@@ -3,7 +3,7 @@ import PeriodDuration
 import XCTJSONKit
 
 struct Scenario {
-    typealias Input = JSONTree
+    typealias Input = JSON
     typealias Output = Props
 
     /// Raw ISO 8601 input
