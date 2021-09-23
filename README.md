@@ -2,7 +2,6 @@
 
 [![CI](https://github.com/davdroman/PeriodDuration/actions/workflows/ci.yml/badge.svg)](https://github.com/davdroman/PeriodDuration/actions/workflows/ci.yml)
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fdavdroman%2FPeriodDuration%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/davdroman/PeriodDuration)
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fdavdroman%2FPeriodDuration%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/davdroman/PeriodDuration)
 
 This library introduces a close equivalent to [Java's PeriodDuration](https://www.threeten.org/threeten-extra/apidocs/org.threeten.extra/org/threeten/extra/PeriodDuration.html), motivated by the lack of support for this standard in Foundation.
 
