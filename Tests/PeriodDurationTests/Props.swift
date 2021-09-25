@@ -1,5 +1,6 @@
 import Foundation
 import PeriodDuration
+import XCTest
 
 struct Props {
     var years: Int? = nil
@@ -40,5 +41,33 @@ extension Duration {
             minutes: props.minutes,
             seconds: props.seconds
         )
+    }
+}
+
+final class PropsTests: XCTestCase {
+    let props = Props(years: 1, months: 2, days: 3, hours: 4, minutes: 5, seconds: 6)
+
+    func testInitPeriodDurationWithProps() {
+        let sut = PeriodDuration(props)
+        XCTAssertEqual(sut.years, 1)
+        XCTAssertEqual(sut.months, 2)
+        XCTAssertEqual(sut.days, 3)
+        XCTAssertEqual(sut.hours, 4)
+        XCTAssertEqual(sut.minutes, 5)
+        XCTAssertEqual(sut.seconds, 6)
+    }
+
+    func testInitPeriodWithProps() {
+        let sut = Period(props)
+        XCTAssertEqual(sut.years, 1)
+        XCTAssertEqual(sut.months, 2)
+        XCTAssertEqual(sut.days, 3)
+    }
+
+    func testInitDurationWithProps() {
+        let sut = Duration(props)
+        XCTAssertEqual(sut.hours, 4)
+        XCTAssertEqual(sut.minutes, 5)
+        XCTAssertEqual(sut.seconds, 6)
     }
 }
