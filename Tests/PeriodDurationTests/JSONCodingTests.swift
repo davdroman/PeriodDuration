@@ -2,7 +2,7 @@ import CustomDump
 import PeriodDuration
 import XCTJSONKit
 
-final class Tests: XCTestCase {
+final class JSONCodingTests: XCTestCase {
     func testPeriodDurationScenarios() throws {
         for s in scenarios {
             try assert(s.input, s.output.map(PeriodDuration.init), identical: s.strictForType == PeriodDuration.self)
@@ -22,7 +22,7 @@ final class Tests: XCTestCase {
     }
 }
 
-private extension Tests {
+private extension JSONCodingTests {
     func assert<T>(
         _ json: JSON,
         _ codable: T?,

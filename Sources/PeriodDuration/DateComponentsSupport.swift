@@ -32,3 +32,19 @@ extension Duration {
         )
     }
 }
+
+#if !os(Linux)
+extension DateComponentsFormatter {
+    public func string(from periodDuration: PeriodDuration) -> String? {
+        string(from: periodDuration.asDateComponents)
+    }
+
+    public func string(from period: Period) -> String? {
+        string(from: period.asDateComponents)
+    }
+
+    public func string(from duration: Duration) -> String? {
+        string(from: duration.asDateComponents)
+    }
+}
+#endif

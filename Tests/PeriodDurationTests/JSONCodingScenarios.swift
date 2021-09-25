@@ -2,66 +2,6 @@ import Foundation
 import PeriodDuration
 import XCTJSONKit
 
-struct Scenario {
-    typealias Input = JSON
-    typealias Output = Props
-
-    /// Raw ISO 8601 input
-    let input: Input
-    /// Expected props computed from input
-    let output: Output?
-    /// A type for which the input and output is exactly the same both ways (encoding & decoding)
-    let strictForType: Any.Type?
-
-    init(_ input: Input, _ output: Output?, strictForType: Any.Type? = nil) {
-        self.input = input
-        self.output = output
-        self.strictForType = strictForType
-    }
-}
-
-struct Props {
-    var years: Int? = nil
-    var months: Int? = nil
-    var days: Int? = nil
-    var hours: Int? = nil
-    var minutes: Int? = nil
-    var seconds: Int? = nil
-}
-
-extension PeriodDuration {
-    init(props: Props) {
-        self.init(
-            years: props.years,
-            months: props.months,
-            days: props.days,
-            hours: props.hours,
-            minutes: props.minutes,
-            seconds: props.seconds
-        )
-    }
-}
-
-extension Period {
-    init(props: Props) {
-        self.init(
-            years: props.years,
-            months: props.months,
-            days: props.days
-        )
-    }
-}
-
-extension Duration {
-    init(props: Props) {
-        self.init(
-            hours: props.hours,
-            minutes: props.minutes,
-            seconds: props.seconds
-        )
-    }
-}
-
 let scenarios: [Scenario] = [
     // MARK: Full
     .init("YMWDTHMS", nil),
@@ -202,3 +142,21 @@ let scenarios: [Scenario] = [
     .init("PT32H ", nil),
     .init(" PT32H ", nil),
 ]
+
+struct Scenario {
+    typealias Input = JSON
+    typealias Output = Props
+
+    /// Raw ISO 8601 input
+    let input: Input
+    /// Expected props computed from input
+    let output: Output?
+    /// A type for which the input and output is exactly the same both ways (encoding & decoding)
+    let strictForType: Any.Type?
+
+    init(_ input: Input, _ output: Output?, strictForType: Any.Type? = nil) {
+        self.input = input
+        self.output = output
+        self.strictForType = strictForType
+    }
+}
