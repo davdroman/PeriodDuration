@@ -51,5 +51,38 @@ final class DateComponentsSupportTests: XCTestCase {
             DateComponents(hour: 4, minute: 5, second: 6)
         )
     }
-}
 
+    #if !os(Linux)
+    lazy var formatter: DateComponentsFormatter = {
+        var formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.year, .month, .day, .hour, .minute, .second]
+        formatter.unitsStyle = .full
+        var calendar = Calendar(identifier: .iso8601)
+        calendar.locale = Locale(identifier: "en_US_POSIX")
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        formatter.calendar = calendar
+        return formatter
+    }()
+
+    func testDateComponentsFormatter_stringFromPeriodDuration() {
+        XCTAssertEqual(
+            formatter.string(from: PeriodDuration(fullProps)),
+            "1 year, 2 months, 3 days, 4 hours, 5 minutes, 6 seconds"
+        )
+    }
+
+    func testDateComponentsFormatter_stringFromPeriod() {
+        XCTAssertEqual(
+            formatter.string(from: Period(fullProps)),
+            "1 year, 2 months, 3 days"
+        )
+    }
+
+    func testDateComponentsFormatter_stringFromDuration() {
+        XCTAssertEqual(
+            formatter.string(from: Duration(fullProps)),
+            "4 hours, 5 minutes, 6 seconds"
+        )
+    }
+    #endif
+}
