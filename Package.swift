@@ -16,13 +16,11 @@ let package = Package(
     ],
     targets: [
         .target(name: "PeriodDuration"),
-        .testTarget(name: "PeriodDurationTests", dependencies: [
-            .target(name: "PeriodDuration"),
-            .product(name: "XCTJSONKit", package: "XCTJSONKit"),
-        ]),
+        .testTarget(name: "PeriodDurationTests", dependencies: ["PeriodDuration", "XCTJSONKit"]), // dev
     ]
 )
 
 package.dependencies = [
-    .package(url: "https://github.com/davdroman/XCTJSONKit", .branch("main")),
+    .package(url: "https://github.com/shibapm/Rocket", from: "1.0.0"), // dev
+    .package(url: "https://github.com/davdroman/XCTJSONKit", .branch("main")), // dev
 ]

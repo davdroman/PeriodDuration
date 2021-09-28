@@ -2,12 +2,48 @@
   "object": {
     "pins": [
       {
+        "package": "Logger",
+        "repositoryURL": "https://github.com/shibapm/Logger",
+        "state": {
+          "branch": null,
+          "revision": "53c3ecca5abe8cf46697e33901ee774236d94cce",
+          "version": "0.2.3"
+        }
+      },
+      {
+        "package": "PackageConfig",
+        "repositoryURL": "https://github.com/shibapm/PackageConfig.git",
+        "state": {
+          "branch": null,
+          "revision": "6e7b59d8d2ab62c1725d205dd2074316e981379a",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "Rocket",
+        "repositoryURL": "https://github.com/shibapm/Rocket",
+        "state": {
+          "branch": null,
+          "revision": "9880a5beb7fcb9e61ddd5764edc1700b8c418deb",
+          "version": "1.2.1"
+        }
+      },
+      {
         "package": "swift-custom-dump",
         "repositoryURL": "https://github.com/pointfreeco/swift-custom-dump",
         "state": {
           "branch": null,
           "revision": "c2dd2c64b753dda592f5619303e02f741cd3e862",
           "version": "0.2.0"
+        }
+      },
+      {
+        "package": "SwiftShell",
+        "repositoryURL": "https://github.com/kareman/SwiftShell",
+        "state": {
+          "branch": null,
+          "revision": "a6014fe94c3dbff0ad500e8da4f251a5d336530b",
+          "version": "5.1.0-beta.1"
         }
       },
       {
@@ -26,6 +62,15 @@
           "branch": "main",
           "revision": "7a75a3c9f08e89fae67b010602e9b31563515ea9",
           "version": null
+        }
+      },
+      {
+        "package": "Yams",
+        "repositoryURL": "https://github.com/jpsim/Yams",
+        "state": {
+          "branch": null,
+          "revision": "9ff1cc9327586db4e0c8f46f064b6a82ec1566fa",
+          "version": "4.0.6"
         }
       }
     ]
