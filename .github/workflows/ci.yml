@@ -16,22 +16,28 @@ concurrency:
 
 jobs:
   macOS:
-    name: ${{ matrix.platform }}
+    name: ${{ matrix.platform }} (Swift ${{ matrix.swift }})
     runs-on: macos-11
     strategy:
       fail-fast: false
       matrix:
         platform:
-          - macOS
           - iOS
+          - macOS
+          - tvOS
+          - watchOS
+        swift:
+          - 5.4
+          - 5.5
     steps:
     - uses: actions/checkout@v2
     - uses: mxcl/xcodebuild@v1
       with:
-        swift: ~5.5
         platform: ${{ matrix.platform }}
+        swift: ~${{ matrix.swift }}
         warnings-as-errors: true
   linux:
+    name: Linux (Swift ${{ matrix.swift }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
