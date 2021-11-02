@@ -2,7 +2,7 @@ import CustomDump
 import PeriodDuration
 import XCTest
 
-final class DateComponentsSupportTests: XCTestCase {
+final class FoundationSupportTests: XCTestCase {
     let blankProps = Props()
     let zeroProps = Props(years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0)
     let fullProps = Props(years: 1, months: 2, days: 3, hours: 4, minutes: 5, seconds: 6)

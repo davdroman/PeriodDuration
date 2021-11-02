@@ -1,28 +1,6 @@
 import Foundation
 
-public struct Period: Codable, Hashable {
-    public var years: Int?
-    public var months: Int?
-    public var days: Int?
-
-    public init(years: Int? = nil, months: Int? = nil, days: Int? = nil) {
-        self.years = years
-        self.months = months
-        self.days = days
-    }
-}
-
-extension Period {
-    public var isBlank: Bool {
-        [years, months, days].compactMap { $0 }.isEmpty
-    }
-
-    public var isBlankOrZero: Bool {
-        isBlank || [years, months, days].allSatisfy(\.isNilOrZero)
-    }
-}
-
-extension Period {
+extension Period: Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         let rawValue = try container.decode(String.self)
