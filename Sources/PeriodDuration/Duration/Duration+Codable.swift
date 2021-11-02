@@ -1,28 +1,6 @@
 import Foundation
 
-public struct Duration: Codable, Hashable {
-    public var hours: Int?
-    public var minutes: Int?
-    public var seconds: Int?
-
-    public init(hours: Int? = nil, minutes: Int? = nil, seconds: Int? = nil) {
-        self.hours = hours
-        self.minutes = minutes
-        self.seconds = seconds
-    }
-}
-
-extension Duration {
-    public var isBlank: Bool {
-        [hours, minutes, seconds].compactMap { $0 }.isEmpty
-    }
-
-    public var isBlankOrZero: Bool {
-        isBlank || [hours, minutes, seconds].allSatisfy(\.isNilOrZero)
-    }
-}
-
-extension Duration {
+extension Duration: Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         let rawValue = try container.decode(String.self)

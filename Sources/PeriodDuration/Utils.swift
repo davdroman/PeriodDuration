@@ -44,3 +44,13 @@ extension String {
         }
     }
 }
+
+#if !os(Linux)
+let formatter: DateComponentsFormatter = {
+    var formatter = DateComponentsFormatter()
+    var calendar = Calendar(identifier: .iso8601)
+    calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+    formatter.calendar = calendar
+    return formatter
+}()
+#endif

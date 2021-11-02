@@ -2,11 +2,7 @@ import CustomDump
 import PeriodDuration
 import XCTest
 
-final class DateComponentsSupportTests: XCTestCase {
-    let blankProps = Props()
-    let zeroProps = Props(years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0)
-    let fullProps = Props(years: 1, months: 2, days: 3, hours: 4, minutes: 5, seconds: 6)
-
+final class FoundationSupportTests: XCTestCase {
     func testPeriodDurationAsDateComponents() {
         XCTAssertNoDifference(
             PeriodDuration(blankProps).asDateComponents,
@@ -53,35 +49,62 @@ final class DateComponentsSupportTests: XCTestCase {
     }
 
     #if !os(Linux)
-    lazy var formatter: DateComponentsFormatter = {
-        var formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.year, .month, .day, .hour, .minute, .second]
+    func formatter(units: NSCalendar.Unit) -> DateComponentsFormatter {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = units
         formatter.unitsStyle = .full
         var calendar = Calendar(identifier: .iso8601)
         calendar.locale = Locale(identifier: "en_US_POSIX")
         calendar.timeZone = TimeZone(secondsFromGMT: 0)!
         formatter.calendar = calendar
         return formatter
-    }()
+    }
 
     func testDateComponentsFormatter_stringFromPeriodDuration() {
+        let formatter = formatter(units: [.year, .month, .day, .hour, .minute, .second])
         XCTAssertEqual(
             formatter.string(from: PeriodDuration(fullProps)),
             "1 year, 2 months, 3 days, 4 hours, 5 minutes, 6 seconds"
         )
+        XCTAssertEqual(
+            formatter.string(from: PeriodDuration(zeroProps)),
+            "0 seconds"
+        )
+        XCTAssertEqual(
+            formatter.string(from: PeriodDuration(blankProps)),
+            nil
+        )
     }
 
     func testDateComponentsFormatter_stringFromPeriod() {
+        let formatter = formatter(units: [.year, .month, .day])
         XCTAssertEqual(
             formatter.string(from: Period(fullProps)),
             "1 year, 2 months, 3 days"
         )
+        XCTAssertEqual(
+            formatter.string(from: Period(zeroProps)),
+            "0 days"
+        )
+        XCTAssertEqual(
+            formatter.string(from: Period(blankProps)),
+            nil
+        )
     }
 
     func testDateComponentsFormatter_stringFromDuration() {
+        let formatter = formatter(units: [.hour, .minute, .second])
         XCTAssertEqual(
             formatter.string(from: Duration(fullProps)),
             "4 hours, 5 minutes, 6 seconds"
+        )
+        XCTAssertEqual(
+            formatter.string(from: Duration(zeroProps)),
+            "0 seconds"
+        )
+        XCTAssertEqual(
+            formatter.string(from: Duration(blankProps)),
+            nil
         )
     }
     #endif
