@@ -1,3 +1,4 @@
+#if !os(Linux)
 import Foundation
 
 extension PeriodDuration {
@@ -8,3 +9,4 @@ extension PeriodDuration {
         return formatter.string(from: self) ?? ""
     }
 }
+#endif

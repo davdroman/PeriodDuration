@@ -45,6 +45,7 @@ extension String {
     }
 }
 
+#if !os(Linux)
 let formatter: DateComponentsFormatter = {
     var formatter = DateComponentsFormatter()
     var calendar = Calendar(identifier: .iso8601)
@@ -52,3 +53,4 @@ let formatter: DateComponentsFormatter = {
     formatter.calendar = calendar
     return formatter
 }()
+#endif

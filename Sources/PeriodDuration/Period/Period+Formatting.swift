@@ -1,3 +1,4 @@
+#if !os(Linux)
 import Foundation
 
 extension Period {
@@ -8,3 +9,4 @@ extension Period {
         return formatter.string(from: self) ?? ""
     }
 }
+#endif

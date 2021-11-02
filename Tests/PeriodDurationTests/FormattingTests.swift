@@ -1,3 +1,4 @@
+#if !os(Linux)
 import PeriodDuration
 import XCTest
 
@@ -193,3 +194,4 @@ extension FormattingTests {
         )
     }
 }
+#endif

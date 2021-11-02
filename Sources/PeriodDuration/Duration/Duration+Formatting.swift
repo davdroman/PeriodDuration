@@ -1,3 +1,4 @@
+#if !os(Linux)
 import Foundation
 
 extension Duration {
@@ -8,3 +9,4 @@ extension Duration {
         return formatter.string(from: self) ?? ""
     }
 }
+#endif
