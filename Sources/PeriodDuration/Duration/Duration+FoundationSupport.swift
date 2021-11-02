@@ -13,7 +13,10 @@ extension Duration {
 #if !os(Linux)
 extension DateComponentsFormatter {
     public func string(from duration: Duration) -> String? {
-        string(from: duration.asDateComponents)
+        guard !duration.isBlank else {
+            return nil
+        }
+        return string(from: duration.asDateComponents)
     }
 }
 #endif

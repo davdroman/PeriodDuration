@@ -16,7 +16,10 @@ extension PeriodDuration {
 #if !os(Linux)
 extension DateComponentsFormatter {
     public func string(from periodDuration: PeriodDuration) -> String? {
-        string(from: periodDuration.asDateComponents)
+        guard !periodDuration.isBlank else {
+            return nil
+        }
+        return string(from: periodDuration.asDateComponents)
     }
 }
 #endif
