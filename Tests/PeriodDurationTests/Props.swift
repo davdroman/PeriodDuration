@@ -58,10 +58,8 @@ extension DateComponents {
 }
 
 final class PropsTests: XCTestCase {
-    let props = Props(years: 1, months: 2, days: 3, hours: 4, minutes: 5, seconds: 6)
-
     func testInitPeriodDurationWithProps() {
-        let sut = PeriodDuration(props)
+        let sut = PeriodDuration(fullProps)
         XCTAssertEqual(sut.years, 1)
         XCTAssertEqual(sut.months, 2)
         XCTAssertEqual(sut.days, 3)
@@ -71,21 +69,21 @@ final class PropsTests: XCTestCase {
     }
 
     func testInitPeriodWithProps() {
-        let sut = Period(props)
+        let sut = Period(fullProps)
         XCTAssertEqual(sut.years, 1)
         XCTAssertEqual(sut.months, 2)
         XCTAssertEqual(sut.days, 3)
     }
 
     func testInitDurationWithProps() {
-        let sut = Duration(props)
+        let sut = Duration(fullProps)
         XCTAssertEqual(sut.hours, 4)
         XCTAssertEqual(sut.minutes, 5)
         XCTAssertEqual(sut.seconds, 6)
     }
 
     func testInitDateComponentsWithProps() {
-        let sut = DateComponents(props)
+        let sut = DateComponents(fullProps)
         XCTAssertEqual(sut.year, 1)
         XCTAssertEqual(sut.month, 2)
         XCTAssertEqual(sut.day, 3)
@@ -94,3 +92,7 @@ final class PropsTests: XCTestCase {
         XCTAssertEqual(sut.second, 6)
     }
 }
+
+let blankProps = Props()
+let zeroProps = Props(years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0)
+let fullProps = Props(years: 1, months: 2, days: 3, hours: 4, minutes: 5, seconds: 6)
