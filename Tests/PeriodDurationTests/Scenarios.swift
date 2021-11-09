@@ -144,7 +144,7 @@ let scenarios: [Scenario] = [
 ]
 
 struct Scenario {
-    typealias Input = JSON
+    typealias Input = String
     typealias Output = Props
 
     /// Raw ISO 8601 input
