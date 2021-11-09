@@ -49,4 +49,4 @@ jobs:
       image: swift:${{ matrix.swift }}
     steps:
     - uses: actions/checkout@v2
-    - run: swift test --parallel -Xswiftc -warnings-as-errors
+    - run: swift test --parallel --sanitize=thread -Xswiftc -warnings-as-errors
