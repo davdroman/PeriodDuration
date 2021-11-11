@@ -8,7 +8,7 @@ final class FormattingTests: XCTestCase {
 }
 
 extension FormattingTests {
-    func testPeriodDurationFormatting_defaultStyle_enLocale() {
+    func testPeriodDurationFormatting_defaultStyle() {
         XCTAssertEqual(
             PeriodDuration(blankProps).formatted(locale: enLocale),
             ""
@@ -23,7 +23,7 @@ extension FormattingTests {
         )
     }
 
-    func testPeriodFormatting_defaultStyle_enLocale() {
+    func testPeriodFormatting_defaultStyle() {
         XCTAssertEqual(
             Period(blankProps).formatted(locale: enLocale),
             ""
@@ -38,7 +38,7 @@ extension FormattingTests {
         )
     }
 
-    func testDurationFormatting_defaultStyle_enLocale() {
+    func testDurationFormatting_defaultStyle() {
         XCTAssertEqual(
             Duration(blankProps).formatted(locale: enLocale),
             ""
@@ -55,7 +55,7 @@ extension FormattingTests {
 }
 
 extension FormattingTests {
-    func testPeriodDurationFormatting_explicitStyle_enLocale() {
+    func testPeriodDurationFormatting_explicitStyle() {
         XCTAssertEqual(
             PeriodDuration(blankProps).formatted(style: .short, locale: enLocale),
             ""
@@ -70,7 +70,7 @@ extension FormattingTests {
         )
     }
 
-    func testPeriodFormatting_explicitStyle_enLocale() {
+    func testPeriodFormatting_explicitStyle() {
         XCTAssertEqual(
             Period(blankProps).formatted(style: .short, locale: enLocale),
             ""
@@ -85,7 +85,7 @@ extension FormattingTests {
         )
     }
 
-    func testDurationFormatting_explicitStyle_enLocale() {
+    func testDurationFormatting_explicitStyle() {
         XCTAssertEqual(
             Duration(blankProps).formatted(style: .short, locale: enLocale),
             ""
@@ -102,7 +102,54 @@ extension FormattingTests {
 }
 
 extension FormattingTests {
-    func testPeriodDurationFormatting_defaultStyle_esLocale() {
+    func testPeriodDurationFormatting_customAllowedUnits() {
+        XCTAssertEqual(
+            PeriodDuration(blankProps).formatted(allowedUnits: [.day, .hour, .minute, .second], locale: enLocale),
+            ""
+        )
+        XCTAssertEqual(
+            PeriodDuration(zeroProps).formatted(allowedUnits: [.day, .hour, .minute], locale: enLocale),
+            "0 minutes"
+        )
+        XCTAssertEqual(
+            PeriodDuration(fullProps).formatted(allowedUnits: [.day, .hour, .minute, .second], locale: enLocale),
+            "427 days, 4 hours, 5 minutes, 6 seconds"
+        )
+    }
+
+    func testPeriodFormatting_customAllowedUnits() {
+        XCTAssertEqual(
+            Period(blankProps).formatted(allowedUnits: [.day, .hour, .minute, .second], locale: enLocale),
+            ""
+        )
+        XCTAssertEqual(
+            Period(zeroProps).formatted(allowedUnits: [.day, .hour], locale: enLocale),
+            "0 hours"
+        )
+        XCTAssertEqual(
+            Period(fullProps).formatted(allowedUnits: [.month, .minute], locale: enLocale),
+            "14 months, 4,320 minutes"
+        )
+    }
+
+    func testDurationFormatting_customAllowedUnits() {
+        XCTAssertEqual(
+            Duration(blankProps).formatted(allowedUnits: [.hour, .minute], locale: enLocale),
+            ""
+        )
+        XCTAssertEqual(
+            Duration(zeroProps).formatted(allowedUnits: [.hour, .minute], locale: enLocale),
+            "0 minutes"
+        )
+        XCTAssertEqual(
+            Duration(fullProps).formatted(allowedUnits: [.hour, .minute], locale: enLocale),
+            "4 hours, 5 minutes"
+        )
+    }
+}
+
+extension FormattingTests {
+    func testPeriodDurationFormatting_esLocale() {
         XCTAssertEqual(
             PeriodDuration(blankProps).formatted(locale: esLocale),
             ""
@@ -117,7 +164,7 @@ extension FormattingTests {
         )
     }
 
-    func testPeriodFormatting_defaultStyle_esLocale() {
+    func testPeriodFormatting_esLocale() {
         XCTAssertEqual(
             Period(blankProps).formatted(locale: esLocale),
             ""
@@ -132,7 +179,7 @@ extension FormattingTests {
         )
     }
 
-    func testDurationFormatting_defaultStyle_esLocale() {
+    func testDurationFormatting_esLocale() {
         XCTAssertEqual(
             Duration(blankProps).formatted(locale: esLocale),
             ""
@@ -144,53 +191,6 @@ extension FormattingTests {
         XCTAssertEqual(
             Duration(fullProps).formatted(locale: esLocale),
             "4 horas, 5 minutos y 6 segundos"
-        )
-    }
-}
-
-extension FormattingTests {
-    func testPeriodDurationFormatting_explicitStyle_esLocale() {
-        XCTAssertEqual(
-            PeriodDuration(blankProps).formatted(style: .short, locale: esLocale),
-            ""
-        )
-        XCTAssertEqual(
-            PeriodDuration(zeroProps).formatted(style: .short, locale: esLocale),
-            "0 s"
-        )
-        XCTAssertEqual(
-            PeriodDuration(fullProps).formatted(style: .short, locale: esLocale),
-            "1 a, 2 m., 3 d, 4 h, 5 min, 6 s"
-        )
-    }
-
-    func testPeriodFormatting_explicitStyle_esLocale() {
-        XCTAssertEqual(
-            Period(blankProps).formatted(style: .short, locale: esLocale),
-            ""
-        )
-        XCTAssertEqual(
-            Period(zeroProps).formatted(style: .short, locale: esLocale),
-            "0 d"
-        )
-        XCTAssertEqual(
-            Period(fullProps).formatted(style: .short, locale: esLocale),
-            "1 a, 2 m., 3 d"
-        )
-    }
-
-    func testDurationFormatting_explicitStyle_esLocale() {
-        XCTAssertEqual(
-            Duration(blankProps).formatted(style: .short, locale: esLocale),
-            ""
-        )
-        XCTAssertEqual(
-            Duration(zeroProps).formatted(style: .short, locale: esLocale),
-            "0 s"
-        )
-        XCTAssertEqual(
-            Duration(fullProps).formatted(style: .short, locale: esLocale),
-            "4 h, 5 min, 6 s"
         )
     }
 }
