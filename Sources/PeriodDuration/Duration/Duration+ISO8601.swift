@@ -25,9 +25,9 @@ extension Duration {
         let amounts = rawDuration.amounts(forComponents: ["H", "M", "S"])
 
         self.init(
-            hours: amounts["H"],
-            minutes: amounts["M"],
-            seconds: amounts["S"]
+            hours: amounts["H"] ?? 0,
+            minutes: amounts["M"] ?? 0,
+            seconds: amounts["S"] ?? 0
         )
     }
 

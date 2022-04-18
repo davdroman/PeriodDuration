@@ -4,12 +4,8 @@ import XCTest
 final class DescriptionTests: XCTestCase {
     func testPeriodDurationDescription() {
         XCTAssertEqual(
-            PeriodDuration(blankProps).description,
+            PeriodDuration.zero.description,
             ""
-        )
-        XCTAssertEqual(
-            PeriodDuration(zeroProps).description,
-            "0 years, 0 months, 0 days, 0 hours, 0 minutes, 0 seconds"
         )
         XCTAssertEqual(
             PeriodDuration(years: 1, months: 1, days: 1, hours: 1, minutes: 1, seconds: 1).description,
@@ -23,12 +19,8 @@ final class DescriptionTests: XCTestCase {
 
     func testPeriodDescription() {
         XCTAssertEqual(
-            Period(blankProps).description,
+            Period.zero.description,
             ""
-        )
-        XCTAssertEqual(
-            Period(zeroProps).description,
-            "0 years, 0 months, 0 days"
         )
         XCTAssertEqual(
             Period(years: 1, months: 1, days: 1).description,
@@ -42,12 +34,8 @@ final class DescriptionTests: XCTestCase {
 
     func testDurationDescription() {
         XCTAssertEqual(
-            Duration(blankProps).description,
+            Duration.zero.description,
             ""
-        )
-        XCTAssertEqual(
-            Duration(zeroProps).description,
-            "0 hours, 0 minutes, 0 seconds"
         )
         XCTAssertEqual(
             Duration(hours: 1, minutes: 1, seconds: 1).description,

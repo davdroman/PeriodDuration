@@ -22,9 +22,9 @@ extension Period {
         let amounts = rawPeriod.amounts(forComponents: ["Y", "M", "W", "D"])
 
         self.init(
-            years: amounts["Y"],
-            months: amounts["M"],
-            days: amounts["W"].map({ $0 * 7 }) + amounts["D"]
+            years: amounts["Y"] ?? 0,
+            months: amounts["M"] ?? 0,
+            days: (amounts["W"].map({ $0 * 7 }) ?? 0) + (amounts["D"] ?? 0)
         )
     }
 

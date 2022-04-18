@@ -26,7 +26,7 @@ extension PeriodDuration {
             result += self.months.withSuffix("M")
             result += self.days.withSuffix("D")
 
-            guard !duration.isBlank else { return result }
+            guard duration != .zero else { return result }
             result += "T"
             result += self.hours.withSuffix("H")
             result += self.minutes.withSuffix("M")

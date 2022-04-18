@@ -3,26 +3,17 @@ import Foundation
 /// `PnYnMnWnDTnHnMnS`
 let validationRegex = #"^P(?:(\d*)Y)?(?:(\d*)M)?(?:(\d*)W)?(?:(\d*)D)?(?:T(?:(\d*)H)?(?:(\d*)M)?(?:(\d*)S)?)?$"#
 
-extension Optional where Wrapped: Numeric {
-    var isNilOrZero: Bool {
-        self == nil || self == .zero
-    }
-
-    static func + (lhs: Self, rhs: Self) -> Self {
-        switch (lhs, rhs) {
-        case let (lhs?, rhs?):
-            return lhs + rhs
-        case let (lhs?, nil):
-            return lhs
-        case let (nil, rhs?):
-            return rhs
-        case (nil, nil):
-            return nil
-        }
+extension Numeric {
+    var nilIfZero: Self? {
+        self == .zero ? nil : self
     }
 
     func withSuffix(_ c: Character) -> String {
-        self.map { "\($0)\(c)" } ?? ""
+        if self == .zero {
+            return ""
+        } else {
+            return "\(self)\(c)"
+        }
     }
 }
 
