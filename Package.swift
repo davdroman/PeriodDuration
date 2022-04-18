@@ -20,9 +20,15 @@ let package = Package(
             .target(name: "PeriodDuration"),
             .product(name: "XCTJSONKit", package: "XCTJSONKit"),
         ]),
+
+        .executableTarget(name: "Benchmarks", dependencies: [
+            .target(name: "PeriodDuration"),
+            .product(name: "Benchmark", package: "swift-benchmark"),
+        ]),
     ]
 )
 
 package.dependencies = [
+    .package(url: "https://github.com/google/swift-benchmark", from: "0.1.1"),
     .package(url: "https://github.com/davdroman/XCTJSONKit", .branch("main")),
 ]
