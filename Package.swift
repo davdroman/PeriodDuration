@@ -15,7 +15,9 @@ let package = Package(
         .library(name: "PeriodDuration", targets: ["PeriodDuration"]),
     ],
     targets: [
-        .target(name: "PeriodDuration"),
+        .target(name: "PeriodDuration", dependencies: [
+            .product(name: "Parsing", package: "swift-parsing"),
+        ]),
         .testTarget(name: "PeriodDurationTests", dependencies: [
             .target(name: "PeriodDuration"),
             .product(name: "XCTJSONKit", package: "XCTJSONKit"),
@@ -30,5 +32,6 @@ let package = Package(
 
 package.dependencies = [
     .package(url: "https://github.com/google/swift-benchmark", from: "0.1.1"),
+    .package(url: "https://github.com/pointfreeco/swift-parsing", from: "0.9.0"),
     .package(url: "https://github.com/davdroman/XCTJSONKit", .branch("main")),
 ]
