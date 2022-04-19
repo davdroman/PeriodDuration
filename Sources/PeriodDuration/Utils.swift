@@ -36,15 +36,15 @@ enum Parsers {
     }
     .map(Duration.init(hours:minutes:seconds:))
 
-    // TODO: optimize
     static let period = Parse {
         pDesignator
         periodValues
-        OneOf {
-            "T".utf8
-            Skip { Rest() }.replaceError(with: ())
+        Skip {
+            Optionally {
+                "T".utf8
+                durationValues
+            }
         }
-        Skip { durationValues }
     }
 
     static let duration = Parse {
