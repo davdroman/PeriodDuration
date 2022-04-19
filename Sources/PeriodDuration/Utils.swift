@@ -46,14 +46,12 @@ enum Parsers {
 
 private extension Parsers {
     static func digitsAndUnit(_ unit: String.UTF8View) -> AnyParser<Substring.UTF8View, Int> {
-        OneOf {
-            unit.map { 0 }
-            Parse {
-                Digits(1...)
-                unit
-            }
-            .replaceError(with: 0)
+        Parse {
+            Optionally { Digits(1...) }
+            unit
         }
+        .map { $0 ?? 0 }
+        .replaceError(with: 0)
         .eraseToAnyParser()
     }
 }
