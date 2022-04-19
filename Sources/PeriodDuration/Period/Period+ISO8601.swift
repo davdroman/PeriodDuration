@@ -8,10 +8,14 @@ extension Period {
 
 extension Period {
     public init?(iso8601 rawValue: String) {
-        guard let _self = PeriodDuration(iso8601: rawValue)?.period else {
+        do {
+            self = try Parsers.period.parse(rawValue)
+        } catch {
+            #if DEBUG
+            print("[\(Self.self)]", error)
+            #endif
             return nil
         }
-        self = _self
     }
 
     public func formatted(style: StandardFormatStyle) -> String {

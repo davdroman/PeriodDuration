@@ -2,6 +2,15 @@ import Foundation
 import Parsing
 
 enum Parsers {
+    static let pDesignator = Skip {
+        "P".utf8
+        Not {
+            Digits(1...)
+            Whitespace(0..., .horizontal)
+            End()
+        }
+    }
+
     static let years = digitsAndUnit("Y".utf8)
     static let months = digitsAndUnit("M".utf8)
     static let weeks = digitsAndUnit("W".utf8)
@@ -10,36 +19,51 @@ enum Parsers {
     static let minutes = digitsAndUnit("M".utf8)
     static let seconds = digitsAndUnit("S".utf8)
 
+    static let periodValues = Parse {
+        years
+        months
+        weeks
+        days
+    }
+    .map { years, months, weeks, days in
+        Period(years: years, months: months, days: weeks * 7 + days)
+    }
+
+    static let durationValues = Parse {
+        hours
+        minutes
+        seconds
+    }
+    .map(Duration.init(hours:minutes:seconds:))
+
+    // TODO: optimize
+    static let period = Parse {
+        pDesignator
+        periodValues
+        OneOf {
+            "T".utf8
+            Skip { Rest() }.replaceError(with: ())
+        }
+        Skip { durationValues }
+    }
+
+    static let duration = Parse {
+        pDesignator
+        OneOf {
+            Skip { PrefixThrough("T".utf8) }
+            Skip { Rest() }.replaceError(with: ())
+        }
+        durationValues
+    }
+
     static let periodDuration = Parse {
-        Skip {
-            "P".utf8
-            Not {
-                Digits(1...)
-                Whitespace(0..., .horizontal)
-                End()
-            }
+        pDesignator
+        periodValues
+        OneOf {
+            "T".utf8
+            Skip { Rest() }.replaceError(with: ())
         }
-        Parse {
-            years
-            months
-            weeks
-            days
-        }
-        .map { years, months, weeks, days in
-            Period(years: years, months: months, days: weeks * 7 + days)
-        }
-        Skip {
-            OneOf {
-                "T".utf8
-                Skip { Rest() }.replaceError(with: ())
-            }
-        }
-        Parse {
-            hours
-            minutes
-            seconds
-        }
-        .map(Duration.init(hours:minutes:seconds:))
+        durationValues
     }
     .map(PeriodDuration.init(period:duration:))
 }
