@@ -5,19 +5,19 @@ import XCTJSONKit
 final class CodableTests: XCTestCase {
     func testPeriodDurationScenarios() throws {
         for s in scenarios {
-            try assert(.string(s.input), s.output.map(PeriodDuration.init), identical: s.strictForType == PeriodDuration.self)
+            try assert(.string(s.input), s.output.map(PeriodDuration.init), identical: s.roundtrippingType == PeriodDuration.self)
         }
     }
 
     func testPeriodScenarios() throws {
         for s in scenarios {
-            try assert(.string(s.input), s.output.map(Period.init), identical: s.strictForType == Period.self)
+            try assert(.string(s.input), s.output.map(Period.init), identical: s.roundtrippingType == Period.self)
         }
     }
 
     func testDurationScenarios() throws {
         for s in scenarios {
-            try assert(.string(s.input), s.output.map(Duration.init), identical: s.strictForType == Duration.self)
+            try assert(.string(s.input), s.output.map(Duration.init), identical: s.roundtrippingType == Duration.self)
         }
     }
 }

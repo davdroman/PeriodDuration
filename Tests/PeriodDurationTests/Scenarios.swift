@@ -23,7 +23,7 @@ let scenarios: [Scenario] = [
     .init("PYMWDTH3MS", .init(minutes: 3)), // m
     .init("PYMWDTHM3S", .init(seconds: 3)), // S
     .init("P3Y3M3W3DT3H3M3S", .init(years: 3, months: 3, days: 24, hours: 3, minutes: 3, seconds: 3)), // YMWDHMS
-    .init("P3Y3M3DT3H3M3S", .init(years: 3, months: 3, days: 3, hours: 3, minutes: 3, seconds: 3), strictForType: PeriodDuration.self), // YMDHMS
+    .init("P3Y3M3DT3H3M3S", .init(years: 3, months: 3, days: 3, hours: 3, minutes: 3, seconds: 3), roundtripWhen: PeriodDuration.self), // YMDHMS
 
     // MARK: Period Full
     .init("YMWD", nil),
@@ -51,7 +51,7 @@ let scenarios: [Scenario] = [
     .init("P3Y3M3WD", .init(years: 3, months: 3, days: 21)), // YMW
     .init("PY3M3W3D", .init(months: 3, days: 24)), // MWD
     .init("P3Y3M3W3D", .init(years: 3, months: 3, days: 24)), // YMWD
-    .init("P3Y3M3D", .init(years: 3, months: 3, days: 3), strictForType: Period.self), // YMD
+    .init("P3Y3M3D", .init(years: 3, months: 3, days: 3), roundtripWhen: Period.self), // YMD
 
     // MARK: Period Individual
     .init("Y", nil),
@@ -95,7 +95,7 @@ let scenarios: [Scenario] = [
     .init("PT3H3MS", .init(hours: 3, minutes: 3)), // HM
     .init("PTH3M3S", .init(minutes: 3, seconds: 3)), // MS
     .init("PT3HM3S", .init(hours: 3, seconds: 3)), // HS
-    .init("PT3H3M3S", .init(hours: 3, minutes: 3, seconds: 3), strictForType: Duration.self), // HMS
+    .init("PT3H3M3S", .init(hours: 3, minutes: 3, seconds: 3), roundtripWhen: Duration.self), // HMS
 
     // MARK: Duration Individual
     .init("H", nil),
@@ -103,9 +103,9 @@ let scenarios: [Scenario] = [
     .init("3H", nil),
     .init("T3H", nil),
 
-    .init("PT", .init(), strictForType: Duration.self),
+    .init("PT", .init(), roundtripWhen: Duration.self),
     .init("PTH", .init()),
-    .init("PT3H", .init(hours: 3), strictForType: Duration.self),
+    .init("PT3H", .init(hours: 3), roundtripWhen: Duration.self),
 
     .init("M", nil),
     .init("TM", nil),
@@ -113,7 +113,7 @@ let scenarios: [Scenario] = [
     .init("T3M", nil),
 
     .init("PTM", .init()),
-    .init("PT3M", .init(minutes: 3), strictForType: Duration.self),
+    .init("PT3M", .init(minutes: 3), roundtripWhen: Duration.self),
 
     .init("S", nil),
     .init("TS", nil),
@@ -121,7 +121,7 @@ let scenarios: [Scenario] = [
     .init("T3S", nil),
 
     .init("PTS", .init()),
-    .init("PT3S", .init(seconds: 3), strictForType: Duration.self),
+    .init("PT3S", .init(seconds: 3), roundtripWhen: Duration.self),
 
     // MARK: Edge Cases
     .init("", nil),
@@ -152,11 +152,11 @@ struct Scenario {
     /// Expected props computed from input
     let output: Output?
     /// A type for which the input and output is exactly the same both ways (encoding & decoding)
-    let strictForType: Any.Type?
+    let roundtrippingType: Any.Type?
 
-    init(_ input: Input, _ output: Output?, strictForType: Any.Type? = nil) {
+    init(_ input: Input, _ output: Output?, roundtripWhen roundtrippingType: Any.Type? = nil) {
         self.input = input
         self.output = output
-        self.strictForType = strictForType
+        self.roundtrippingType = roundtrippingType
     }
 }
