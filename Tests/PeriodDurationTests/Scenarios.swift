@@ -128,6 +128,8 @@ let scenarios: [Scenario] = [
     .init(" ", nil),
     .init("3", nil),
     .init("P3", nil),
+    .init("P3 ", nil),
+    .init("P3  ", nil),
     .init("T3", nil),
     .init("PT3", nil),
     .init("*", nil),
