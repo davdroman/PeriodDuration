@@ -21,12 +21,12 @@ public struct PeriodDuration: Hashable {
     }
 
     public init(
-        years: Int? = nil,
-        months: Int? = nil,
-        days: Int? = nil,
-        hours: Int? = nil,
-        minutes: Int? = nil,
-        seconds: Int? = nil
+        years: Int = 0,
+        months: Int = 0,
+        days: Int = 0,
+        hours: Int = 0,
+        minutes: Int = 0,
+        seconds: Int = 0
     ) {
         self.init(
             period: Period(years: years, months: months, days: days),
@@ -36,12 +36,12 @@ public struct PeriodDuration: Hashable {
 }
 
 extension PeriodDuration {
-    public subscript(dynamicMember keyPath: WritableKeyPath<Period, Int?>) -> Int? {
+    public subscript(dynamicMember keyPath: WritableKeyPath<Period, Int>) -> Int {
         get { period[keyPath: keyPath] }
         set { period[keyPath: keyPath] = newValue }
     }
 
-    public subscript(dynamicMember keyPath: WritableKeyPath<Duration, Int?>) -> Int? {
+    public subscript(dynamicMember keyPath: WritableKeyPath<Duration, Int>) -> Int {
         get { duration[keyPath: keyPath] }
         set { duration[keyPath: keyPath] = newValue }
     }

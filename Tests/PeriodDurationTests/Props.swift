@@ -3,12 +3,12 @@ import PeriodDuration
 import XCTest
 
 struct Props {
-    var years: Int? = nil
-    var months: Int? = nil
-    var days: Int? = nil
-    var hours: Int? = nil
-    var minutes: Int? = nil
-    var seconds: Int? = nil
+    var years: Int = 0
+    var months: Int = 0
+    var days: Int = 0
+    var hours: Int = 0
+    var minutes: Int = 0
+    var seconds: Int = 0
 }
 
 extension PeriodDuration {
@@ -93,6 +93,5 @@ final class PropsTests: XCTestCase {
     }
 }
 
-let blankProps = Props()
 let zeroProps = Props(years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0)
 let fullProps = Props(years: 1, months: 2, days: 3, hours: 4, minutes: 5, seconds: 6)

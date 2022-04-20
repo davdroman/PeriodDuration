@@ -13,10 +13,7 @@ extension Period {
 #if !os(Linux)
 extension DateComponentsFormatter {
     public func string(from period: Period) -> String? {
-        guard !period.isBlank else {
-            return nil
-        }
-        return string(from: period.asDateComponents)
+        string(from: period.asDateComponents)
     }
 }
 #endif

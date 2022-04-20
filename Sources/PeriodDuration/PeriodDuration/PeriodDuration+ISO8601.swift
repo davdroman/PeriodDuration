@@ -8,13 +8,14 @@ extension PeriodDuration {
 
 extension PeriodDuration {
     public init?(iso8601 rawValue: String) {
-        guard
-            let period = Period(iso8601: rawValue),
-            let duration = Duration(iso8601: rawValue)
-        else {
+        do {
+            self = try Parsers.periodDuration.parse(rawValue)
+        } catch {
+            #if DEBUG
+            print("[\(Self.self)]", error)
+            #endif
             return nil
         }
-        self.init(period: period, duration: duration)
     }
 
     public func formatted(style: StandardFormatStyle) -> String {
@@ -26,7 +27,7 @@ extension PeriodDuration {
             result += self.months.withSuffix("M")
             result += self.days.withSuffix("D")
 
-            guard !duration.isBlank else { return result }
+            guard duration != .zero else { return result }
             result += "T"
             result += self.hours.withSuffix("H")
             result += self.minutes.withSuffix("M")

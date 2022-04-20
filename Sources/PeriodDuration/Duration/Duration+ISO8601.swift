@@ -8,27 +8,14 @@ extension Duration {
 
 extension Duration {
     public init?(iso8601 rawValue: String) {
-        guard rawValue.range(of: validationRegex, options: .regularExpression) != nil else {
+        do {
+            self = try Parsers.duration.parse(rawValue)
+        } catch {
+            #if DEBUG
+            print("[\(Self.self)]", error)
+            #endif
             return nil
         }
-
-        // Gets `TnHnMnS` substring, then drops the `T` designator to return `nHnMnS`
-        guard let rawDuration = rawValue
-            .firstIndex(of: "T")
-            .map({ rawValue[$0...].dropFirst() })
-            .map(String.init)
-        else {
-            self = Duration()
-            return
-        }
-
-        let amounts = rawDuration.amounts(forComponents: ["H", "M", "S"])
-
-        self.init(
-            hours: amounts["H"],
-            minutes: amounts["M"],
-            seconds: amounts["S"]
-        )
     }
 
     public func formatted(style: StandardFormatStyle) -> String {

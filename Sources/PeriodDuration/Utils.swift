@@ -1,46 +1,95 @@
 import Foundation
+import Parsing
 
-/// `PnYnMnWnDTnHnMnS`
-let validationRegex = #"^P(?:(\d*)Y)?(?:(\d*)M)?(?:(\d*)W)?(?:(\d*)D)?(?:T(?:(\d*)H)?(?:(\d*)M)?(?:(\d*)S)?)?$"#
-
-extension Optional where Wrapped: Numeric {
-    var isNilOrZero: Bool {
-        self == nil || self == .zero
-    }
-
-    static func + (lhs: Self, rhs: Self) -> Self {
-        switch (lhs, rhs) {
-        case let (lhs?, rhs?):
-            return lhs + rhs
-        case let (lhs?, nil):
-            return lhs
-        case let (nil, rhs?):
-            return rhs
-        case (nil, nil):
-            return nil
+enum Parsers {
+    static let pDesignator = Skip {
+        "P".utf8
+        Not {
+            Digits(1...)
+            Whitespace(0..., .horizontal)
+            End()
         }
     }
 
-    func withSuffix(_ c: Character) -> String {
-        self.map { "\($0)\(c)" } ?? ""
+    static let years = digitsAndUnit("Y".utf8)
+    static let months = digitsAndUnit("M".utf8)
+    static let weeks = digitsAndUnit("W".utf8)
+    static let days = digitsAndUnit("D".utf8)
+    static let hours = digitsAndUnit("H".utf8)
+    static let minutes = digitsAndUnit("M".utf8)
+    static let seconds = digitsAndUnit("S".utf8)
+
+    static let periodValues = Parse {
+        years
+        months
+        weeks
+        days
+    }
+    .map { years, months, weeks, days in
+        Period(years: years, months: months, days: weeks * 7 + days)
+    }
+
+    static let durationValues = Parse {
+        hours
+        minutes
+        seconds
+    }
+    .map(Duration.init(hours:minutes:seconds:))
+
+    static let period = Parse {
+        pDesignator
+        periodValues
+        Skip {
+            Optionally {
+                "T".utf8
+                durationValues
+            }
+        }
+    }
+
+    static let duration = Parse {
+        pDesignator
+        OneOf {
+            Skip { PrefixThrough("T".utf8) }
+            Skip { Rest() }.replaceError(with: ())
+        }
+        durationValues
+    }
+
+    static let periodDuration = Parse {
+        pDesignator
+        periodValues
+        OneOf {
+            "T".utf8
+            Skip { Rest() }.replaceError(with: ())
+        }
+        durationValues
+    }
+    .map(PeriodDuration.init(period:duration:))
+}
+
+private extension Parsers {
+    static func digitsAndUnit(_ unit: String.UTF8View) -> AnyParser<Substring.UTF8View, Int> {
+        Parse {
+            Optionally { Digits(1...) }
+            unit
+        }
+        .map { $0 ?? 0 }
+        .replaceError(with: 0)
+        .eraseToAnyParser()
     }
 }
 
-extension String {
-    func amounts(forComponents c: [Character]) -> [Character: Int] {
-        let regexes = c.map { "[0-9]{1,}\($0)" }
-        return regexes.reduce(into: [:]) { components, regex in
-            guard var token = try? NSRegularExpression(pattern: regex)
-                .matches(in: self, range: NSRange(self.startIndex..., in: self))
-                .compactMap({ String(self[Range($0.range, in: self)!]) })
-                .first
-            else {
-                return
-            }
+extension Numeric {
+    var nilIfZero: Self? {
+        self == .zero ? nil : self
+    }
 
-            let key = token.removeLast()
-            let value = Int(token)
-            components[key] = value
+    func withSuffix(_ c: Character) -> String {
+        if self == .zero {
+            return ""
+        } else {
+            return "\(self)\(c)"
         }
     }
 }

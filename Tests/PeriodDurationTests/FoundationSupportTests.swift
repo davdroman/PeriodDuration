@@ -5,11 +5,7 @@ import XCTest
 final class FoundationSupportTests: XCTestCase {
     func testPeriodDurationAsDateComponents() {
         XCTAssertNoDifference(
-            PeriodDuration(blankProps).asDateComponents,
-            DateComponents(blankProps)
-        )
-        XCTAssertNoDifference(
-            PeriodDuration(zeroProps).asDateComponents,
+            PeriodDuration.zero.asDateComponents,
             DateComponents(zeroProps)
         )
         XCTAssertNoDifference(
@@ -20,11 +16,7 @@ final class FoundationSupportTests: XCTestCase {
 
     func testPeriodAsDateComponents() {
         XCTAssertNoDifference(
-            Period(blankProps).asDateComponents,
-            DateComponents(year: nil, month: nil, day: nil)
-        )
-        XCTAssertNoDifference(
-            Period(zeroProps).asDateComponents,
+            Period.zero.asDateComponents,
             DateComponents(year: 0, month: 0, day: 0)
         )
         XCTAssertNoDifference(
@@ -35,11 +27,7 @@ final class FoundationSupportTests: XCTestCase {
 
     func testDurationAsDateComponents() {
         XCTAssertNoDifference(
-            Duration(blankProps).asDateComponents,
-            DateComponents(hour: nil, minute: nil, second: nil)
-        )
-        XCTAssertNoDifference(
-            Duration(zeroProps).asDateComponents,
+            Duration.zero.asDateComponents,
             DateComponents(hour: 0, minute: 0, second: 0)
         )
         XCTAssertNoDifference(
@@ -67,12 +55,8 @@ final class FoundationSupportTests: XCTestCase {
             "1 year, 2 months, 3 days, 4 hours, 5 minutes, 6 seconds"
         )
         XCTAssertEqual(
-            formatter.string(from: PeriodDuration(zeroProps)),
+            formatter.string(from: PeriodDuration.zero),
             "0 seconds"
-        )
-        XCTAssertEqual(
-            formatter.string(from: PeriodDuration(blankProps)),
-            nil
         )
     }
 
@@ -83,12 +67,8 @@ final class FoundationSupportTests: XCTestCase {
             "1 year, 2 months, 3 days"
         )
         XCTAssertEqual(
-            formatter.string(from: Period(zeroProps)),
+            formatter.string(from: Period.zero),
             "0 days"
-        )
-        XCTAssertEqual(
-            formatter.string(from: Period(blankProps)),
-            nil
         )
     }
 
@@ -99,12 +79,8 @@ final class FoundationSupportTests: XCTestCase {
             "4 hours, 5 minutes, 6 seconds"
         )
         XCTAssertEqual(
-            formatter.string(from: Duration(zeroProps)),
+            formatter.string(from: Duration.zero),
             "0 seconds"
-        )
-        XCTAssertEqual(
-            formatter.string(from: Duration(blankProps)),
-            nil
         )
     }
     #endif
