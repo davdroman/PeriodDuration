@@ -35,7 +35,6 @@ jobs:
         platform: ${{ matrix.platform }}
         swift: ~${{ matrix.swift }}
         scheme: PeriodDuration-Package
-        warnings-as-errors: true
   linux:
     name: Linux (Swift ${{ matrix.swift }})
     runs-on: ubuntu-latest
