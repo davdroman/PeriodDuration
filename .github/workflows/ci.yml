@@ -27,6 +27,7 @@ jobs:
           - tvOS
           - watchOS
         swift:
+          - 5.5
           - 5.6
     steps:
     - uses: actions/checkout@v2
@@ -34,8 +35,7 @@ jobs:
       with:
         platform: ${{ matrix.platform }}
         swift: ~${{ matrix.swift }}
-        scheme: PeriodDuration-Package
-        warnings-as-errors: true
+        scheme: PeriodDuration
   linux:
     name: Linux (Swift ${{ matrix.swift }})
     runs-on: ubuntu-latest
@@ -43,6 +43,7 @@ jobs:
       fail-fast: false
       matrix:
         swift:
+          - 5.5
           - 5.6
     container:
       image: swift:${{ matrix.swift }}

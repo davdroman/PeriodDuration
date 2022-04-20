@@ -1,4 +1,3 @@
-#if os(macOS)
 import PeriodDuration
 import Benchmark
 
@@ -27,4 +26,3 @@ benchmark("print Duration") {
 }
 
 Benchmark.main()
-#endif
