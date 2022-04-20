@@ -34,7 +34,7 @@ jobs:
       with:
         platform: ${{ matrix.platform }}
         swift: ~${{ matrix.swift }}
-        scheme: PeriodDuration-Package
+        scheme: PeriodDuration
   linux:
     name: Linux (Swift ${{ matrix.swift }})
     runs-on: ubuntu-latest
