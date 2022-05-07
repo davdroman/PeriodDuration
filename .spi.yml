@@ -1,0 +1,11 @@
+version: 1
+builder:
+  configs:
+  - platform: ios
+    scheme: PeriodDuration
+  - platform: macos-xcodebuild
+    scheme: PeriodDuration
+  - platform: tvos
+    scheme: PeriodDuration
+  - platform: watchos
+    scheme: PeriodDuration
