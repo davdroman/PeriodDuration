@@ -48,3 +48,22 @@ This allows for a number of handy things. Namely:
 
 - Date manipulation: adding periods/durations to `Date` instances via [`Calendar.date(byAdding:to:wrappingComponents:)`](https://developer.apple.com/documentation/foundation/calendar/2293676-date/).
 - Human-readable formatting via [`DateComponentsFormatter`](https://developer.apple.com/documentation/foundation/datecomponentsformatter).
+
+## Benchmarks
+
+```
+MacBook Pro (14-inch, 2021)
+Apple M1 Pro (10 cores, 8 performance and 2 efficiency)
+32 GB Memory
+
+$ swift run -c release Benchmarks
+
+name                 time        std        iterations
+------------------------------------------------------
+parse PeriodDuration 1041.000 ns ±  26.34 %    1000000
+print PeriodDuration 1291.000 ns ±  12.34 %    1000000
+parse Period         1333.000 ns ±  13.65 %    1000000
+print Period          666.000 ns ±  38.67 %    1000000
+parse Duration       1041.000 ns ±  33.51 %    1000000
+print Duration        666.000 ns ±  16.86 %    1000000
+```
