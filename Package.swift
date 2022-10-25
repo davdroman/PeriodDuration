@@ -20,7 +20,7 @@ let package = Package(
         ]),
         .testTarget(name: "PeriodDurationTests", dependencies: [
             .target(name: "PeriodDuration"),
-            .product(name: "XCTJSONKit", package: "XCTJSONKit"),
+            .product(name: "JSONTesting", package: "swift-json-testing"),
         ]),
 
         .executableTarget(name: "Benchmarks", dependencies: [
@@ -33,5 +33,5 @@ let package = Package(
 package.dependencies = [
     .package(url: "https://github.com/google/swift-benchmark", branch: "main"),
     .package(url: "https://github.com/pointfreeco/swift-parsing", from: "0.9.0"),
-    .package(url: "https://github.com/davdroman/XCTJSONKit", branch: "main"),
+    .package(url: "https://github.com/davdroman/swift-json-testing", branch: "main"),
 ]

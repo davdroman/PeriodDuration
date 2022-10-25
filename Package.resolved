@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
         "state": {
           "branch": null,
-          "revision": "7346701ea29da0a85d4403cf3d7a589a58ae3dee",
-          "version": "0.9.2"
+          "revision": "bb436421f57269fbcfe7360735985321585a86e5",
+          "version": "0.10.1"
         }
       },
       {
@@ -35,6 +35,15 @@
           "branch": null,
           "revision": "819d9d370cd721c9d87671e29d947279292e4541",
           "version": "0.6.0"
+        }
+      },
+      {
+        "package": "swift-json-testing",
+        "repositoryURL": "https://github.com/davdroman/swift-json-testing",
+        "state": {
+          "branch": "main",
+          "revision": "9223048c0e9de244b6ba4f4f81a16828f44db13e",
+          "version": null
         }
       },
       {
@@ -51,17 +60,8 @@
         "repositoryURL": "https://github.com/pointfreeco/xctest-dynamic-overlay",
         "state": {
           "branch": null,
-          "revision": "30314f1ece684dd60679d598a9b89107557b67d9",
-          "version": "0.4.1"
-        }
-      },
-      {
-        "package": "XCTJSONKit",
-        "repositoryURL": "https://github.com/davdroman/XCTJSONKit",
-        "state": {
-          "branch": "main",
-          "revision": "ad5527a077f3517ef4da31cbebfc7514ab5f4cb5",
-          "version": null
+          "revision": "16e6409ee82e1b81390bdffbf217b9c08ab32784",
+          "version": "0.5.0"
         }
       }
     ]

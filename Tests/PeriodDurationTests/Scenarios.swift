@@ -1,6 +1,6 @@
 import Foundation
+import JSONTesting
 import PeriodDuration
-import XCTJSONKit
 
 let scenarios: [Scenario] = [
     // MARK: Full

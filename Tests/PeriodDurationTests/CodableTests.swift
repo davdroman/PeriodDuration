@@ -1,6 +1,6 @@
 import CustomDump
+import JSONTesting
 import PeriodDuration
-import XCTJSONKit
 
 final class CodableTests: XCTestCase {
     func testPeriodDurationScenarios() throws {
