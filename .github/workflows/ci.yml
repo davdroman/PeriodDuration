@@ -17,7 +17,7 @@ concurrency:
 jobs:
   macOS:
     name: ${{ matrix.platform }} (Swift ${{ matrix.swift }})
-    runs-on: macos-13
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
@@ -37,6 +37,14 @@ jobs:
             action: build
           - platform: watchOS
             action: build
+          - swift: 5.5
+            os: macos-12
+          - swift: 5.6
+            os: macos-12
+          - swift: 5.7
+            os: macos-13
+          - swift: 5.8
+            os: macos-13
     steps:
     - uses: actions/checkout@v2
     - uses: mxcl/xcodebuild@v1
