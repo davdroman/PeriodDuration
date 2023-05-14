@@ -46,8 +46,8 @@ jobs:
           - swift: 5.8
             os: macos-13
     steps:
-    - uses: actions/checkout@v2
-    - uses: mxcl/xcodebuild@v1
+    - uses: actions/checkout@v3
+    - uses: mxcl/xcodebuild@v2
       with:
         action: ${{ matrix.action }}
         platform: ${{ matrix.platform }}
@@ -67,5 +67,5 @@ jobs:
     container:
       image: swift:${{ matrix.swift }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - run: swift test --parallel --sanitize=thread -Xswiftc -warnings-as-errors
