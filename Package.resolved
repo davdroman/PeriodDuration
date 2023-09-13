@@ -1,70 +1,68 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "swift-argument-parser",
-        "repositoryURL": "https://github.com/apple/swift-argument-parser",
-        "state": {
-          "branch": null,
-          "revision": "fee6933f37fde9a5e12a1e4aeaa93fe60116ff2a",
-          "version": "1.2.2"
-        }
-      },
-      {
-        "package": "Benchmark",
-        "repositoryURL": "https://github.com/google/swift-benchmark",
-        "state": {
-          "branch": "main",
-          "revision": "8163295f6fe82356b0bcf8e1ab991645de17d096",
-          "version": null
-        }
-      },
-      {
-        "package": "swift-case-paths",
-        "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
-        "state": {
-          "branch": null,
-          "revision": "fc45e7b2cfece9dd80b5a45e6469ffe67fe67984",
-          "version": "0.14.1"
-        }
-      },
-      {
-        "package": "swift-custom-dump",
-        "repositoryURL": "https://github.com/pointfreeco/swift-custom-dump",
-        "state": {
-          "branch": null,
-          "revision": "84b30e1af72e0ffe6dfbfe39d53b8173caacf224",
-          "version": "0.10.2"
-        }
-      },
-      {
-        "package": "swift-json-testing",
-        "repositoryURL": "https://github.com/davdroman/swift-json-testing",
-        "state": {
-          "branch": "main",
-          "revision": "9223048c0e9de244b6ba4f4f81a16828f44db13e",
-          "version": null
-        }
-      },
-      {
-        "package": "swift-parsing",
-        "repositoryURL": "https://github.com/pointfreeco/swift-parsing",
-        "state": {
-          "branch": null,
-          "revision": "c6e2241daa46e5c6e5027a93b161bca6ba692bcc",
-          "version": "0.12.0"
-        }
-      },
-      {
-        "package": "xctest-dynamic-overlay",
-        "repositoryURL": "https://github.com/pointfreeco/xctest-dynamic-overlay",
-        "state": {
-          "branch": null,
-          "revision": "4af50b38daf0037cfbab15514a241224c3f62f98",
-          "version": "0.8.5"
-        }
+  "pins" : [
+    {
+      "identity" : "swift-argument-parser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-argument-parser",
+      "state" : {
+        "revision" : "fee6933f37fde9a5e12a1e4aeaa93fe60116ff2a",
+        "version" : "1.2.2"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "swift-benchmark",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/google/swift-benchmark",
+      "state" : {
+        "revision" : "8163295f6fe82356b0bcf8e1ab991645de17d096",
+        "version" : "0.1.2"
+      }
+    },
+    {
+      "identity" : "swift-case-paths",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-case-paths",
+      "state" : {
+        "revision" : "5da6989aae464f324eef5c5b52bdb7974725ab81",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "swift-custom-dump",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-custom-dump",
+      "state" : {
+        "revision" : "edd66cace818e1b1c6f1b3349bb1d8e00d6f8b01",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "swift-json-testing",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/davdroman/swift-json-testing",
+      "state" : {
+        "revision" : "de48704db4af7d448bc27aea305b39494fed6eec",
+        "version" : "0.2.0"
+      }
+    },
+    {
+      "identity" : "swift-parsing",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-parsing",
+      "state" : {
+        "revision" : "a0e7d73f462c1c38c59dc40a3969ac40cea42950",
+        "version" : "0.13.0"
+      }
+    },
+    {
+      "identity" : "xctest-dynamic-overlay",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
+      "state" : {
+        "revision" : "23cbf2294e350076ea4dbd7d5d047c1e76b03631",
+        "version" : "1.0.2"
+      }
+    }
+  ],
+  "version" : 2
 }

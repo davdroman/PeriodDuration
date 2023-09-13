@@ -27,24 +27,21 @@ jobs:
           - tvOS
           - watchOS
         swift:
-          - 5.5
-          - 5.6
           - 5.7
           - 5.8
+          - 5.9
         include:
+          - swift: 5.7
+            os: macos-13
+          - swift: 5.8
+            os: macos-13
+          - swift: 5.9
+            os: macos-13
           - action: test
           - platform: tvOS
             action: build
           - platform: watchOS
             action: build
-          - swift: 5.5
-            os: macos-12
-          - swift: 5.6
-            os: macos-12
-          - swift: 5.7
-            os: macos-13
-          - swift: 5.8
-            os: macos-13
     steps:
     - uses: actions/checkout@v3
     - uses: mxcl/xcodebuild@v2
@@ -60,10 +57,9 @@ jobs:
       fail-fast: false
       matrix:
         swift:
-          - 5.5
-          - 5.6
           - 5.7
           - 5.8
+          # - 5.9
     container:
       image: swift:${{ matrix.swift }}
     steps:
