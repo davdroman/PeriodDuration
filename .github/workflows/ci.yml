@@ -59,7 +59,7 @@ jobs:
         swift:
           - 5.7
           - 5.8
-          # - 5.9
+          - 5.9
     container:
       image: swift:${{ matrix.swift }}
     steps:
