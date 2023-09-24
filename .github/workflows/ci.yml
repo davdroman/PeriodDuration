@@ -43,7 +43,7 @@ jobs:
           - platform: watchOS
             action: build
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: mxcl/xcodebuild@v2
       with:
         action: ${{ matrix.action }}
@@ -63,5 +63,5 @@ jobs:
     container:
       image: swift:${{ matrix.swift }}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - run: swift test --parallel --sanitize=thread -Xswiftc -warnings-as-errors
