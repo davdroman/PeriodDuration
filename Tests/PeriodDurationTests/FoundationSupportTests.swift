@@ -4,33 +4,33 @@ import XCTest
 
 final class FoundationSupportTests: XCTestCase {
     func testPeriodDurationAsDateComponents() {
-        XCTAssertNoDifference(
+       expectNoDifference(
             PeriodDuration.zero.asDateComponents,
             DateComponents(zeroProps)
         )
-        XCTAssertNoDifference(
+        expectNoDifference(
             PeriodDuration(fullProps).asDateComponents,
             DateComponents(fullProps)
         )
     }
 
     func testPeriodAsDateComponents() {
-        XCTAssertNoDifference(
+        expectNoDifference(
             Period.zero.asDateComponents,
             DateComponents(year: 0, month: 0, day: 0)
         )
-        XCTAssertNoDifference(
+        expectNoDifference(
             Period(fullProps).asDateComponents,
             DateComponents(year: 1, month: 2, day: 3)
         )
     }
 
     func testDurationAsDateComponents() {
-        XCTAssertNoDifference(
+        expectNoDifference(
             Duration.zero.asDateComponents,
             DateComponents(hour: 0, minute: 0, second: 0)
         )
-        XCTAssertNoDifference(
+        expectNoDifference(
             Duration(fullProps).asDateComponents,
             DateComponents(hour: 4, minute: 5, second: 6)
         )

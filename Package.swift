@@ -1,4 +1,4 @@
-// swift-tools-version:5.7
+// swift-tools-version:6.0
 
 import PackageDescription
 
@@ -26,7 +26,8 @@ let package = Package(
             .target(name: "PeriodDuration"),
             .product(name: "Benchmark", package: "swift-benchmark"),
         ]),
-    ]
+    ],
+    swiftLanguageModes: [.v5]
 )
 
 package.dependencies = [
