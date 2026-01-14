@@ -1,5 +1,5 @@
 import Foundation
-import Parsing
+@preconcurrency import Parsing
 
 enum Parsers {
     static let pDesignator = Skip {

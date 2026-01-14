@@ -26,8 +26,7 @@ let package = Package(
             .target(name: "PeriodDuration"),
             .product(name: "Benchmark", package: "swift-benchmark"),
         ]),
-    ],
-    swiftLanguageModes: [.v5]
+    ]
 )
 
 package.dependencies = [
