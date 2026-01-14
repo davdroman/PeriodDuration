@@ -1,4 +1,5 @@
 import CustomDump
+import Foundation
 import PeriodDuration
 import Testing
 

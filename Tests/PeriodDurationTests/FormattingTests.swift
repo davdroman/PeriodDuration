@@ -1,4 +1,5 @@
 #if !os(Linux)
+import Foundation
 import PeriodDuration
 import Testing
 
