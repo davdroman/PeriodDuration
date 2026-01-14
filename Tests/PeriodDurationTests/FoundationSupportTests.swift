@@ -4,7 +4,7 @@ import XCTest
 
 final class FoundationSupportTests: XCTestCase {
     func testPeriodDurationAsDateComponents() {
-       expectNoDifference(
+        expectNoDifference(
             PeriodDuration.zero.asDateComponents,
             DateComponents(zeroProps)
         )
