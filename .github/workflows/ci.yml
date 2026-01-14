@@ -34,6 +34,19 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v5
 
+      - name: Select Xcode version
+        uses: mxcl/xcodebuild@v3
+        with:
+          swift: ~${{ matrix.swift }}
+          action: none
+
+      - name: List Runtimes
+        run: xcrun simctl list runtimes
+
+      - if: matrix.platform != 'macOS'
+        name: Download Required Runtimes
+        run: xcodebuild -downloadPlatform ${{ matrix.platform }}
+
       - name: Test Library
         uses: mxcl/xcodebuild@v3
         with:
@@ -79,5 +92,3 @@ jobs:
         with:
           swift-version: ${{ matrix.swift }}
           free-disk-space: true
-          build-package: false
-          run-tests: true
