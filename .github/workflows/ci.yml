@@ -8,16 +8,16 @@ on:
     branches:
       - "**"
   schedule:
-    - cron: '3 3 * * 2'  # 3:03 AM, every Tuesday
+    - cron: "3 3 * * 2" # 3:03 AM, every Tuesday
 
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  macOS:
+  macos:
     name: ${{ matrix.platform }} (Swift ${{ matrix.swift }})
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-15
     strategy:
       fail-fast: false
       matrix:
@@ -27,29 +27,21 @@ jobs:
           - tvOS
           - watchOS
         swift:
-          - 5.7
-          - 5.8
-          - 5.9
-        include:
-          - swift: 5.7
-            os: macos-13
-          - swift: 5.8
-            os: macos-13
-          - swift: 5.9
-            os: macos-13
-          - action: test
-          - platform: tvOS
-            action: build
-          - platform: watchOS
-            action: build
+          - "6.0"
+          - "6.1"
+          - "6.2"
     steps:
-    - uses: actions/checkout@v4
-    - uses: mxcl/xcodebuild@v2
-      with:
-        action: ${{ matrix.action }}
-        platform: ${{ matrix.platform }}
-        swift: ~${{ matrix.swift }}
-        scheme: PeriodDuration
+      - name: Git Checkout
+        uses: actions/checkout@v5
+
+      - name: Test Library
+        uses: mxcl/xcodebuild@v3
+        with:
+          swift: ~${{ matrix.swift }}
+          action: ${{ matrix.action }}
+          platform: ${{ matrix.platform }}
+          scheme: PeriodDuration
+
   linux:
     name: Linux (Swift ${{ matrix.swift }})
     runs-on: ubuntu-latest
@@ -57,11 +49,33 @@ jobs:
       fail-fast: false
       matrix:
         swift:
-          - 5.7
-          - 5.8
-          - 5.9
+          - "6.0"
+          - "6.1"
+          - "6.2"
     container:
       image: swift:${{ matrix.swift }}
     steps:
-    - uses: actions/checkout@v4
-    - run: swift test --parallel --sanitize=thread -Xswiftc -warnings-as-errors
+      - name: Git Checkout
+        uses: actions/checkout@v5
+
+      - name: Test Library
+        run: swift test
+
+  android:
+    name: Android (Swift ${{ matrix.swift }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        swift:
+          - "6.0"
+          - "6.1"
+          - "6.2"
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v5
+
+      - name: Build and Test Library
+        uses: skiptools/swift-android-action@v2
+        with:
+          swift-version: ${{ matrix.swift }}
+          free-disk-space: true
