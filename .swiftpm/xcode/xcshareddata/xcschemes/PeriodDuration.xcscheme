@@ -30,6 +30,7 @@
       <Testables>
          <TestableReference
             skipped = "NO"
+            parallelizable = "NO"
             testExecutionOrdering = "random">
             <BuildableReference
                BuildableIdentifier = "primary"
