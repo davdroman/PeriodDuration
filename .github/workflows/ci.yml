@@ -79,3 +79,5 @@ jobs:
         with:
           swift-version: ${{ matrix.swift }}
           free-disk-space: true
+          build-package: false
+          run-tests: true
