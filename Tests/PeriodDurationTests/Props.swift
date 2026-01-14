@@ -1,6 +1,6 @@
 import Foundation
 import PeriodDuration
-import XCTest
+import Testing
 
 struct Props {
     var years: Int = 0
@@ -57,39 +57,39 @@ extension DateComponents {
     }
 }
 
-final class PropsTests: XCTestCase {
-    func testInitPeriodDurationWithProps() {
+struct PropsTests {
+    @Test func initPeriodDurationWithProps() {
         let sut = PeriodDuration(fullProps)
-        XCTAssertEqual(sut.years, 1)
-        XCTAssertEqual(sut.months, 2)
-        XCTAssertEqual(sut.days, 3)
-        XCTAssertEqual(sut.hours, 4)
-        XCTAssertEqual(sut.minutes, 5)
-        XCTAssertEqual(sut.seconds, 6)
+        #expect(sut.years == 1)
+        #expect(sut.months == 2)
+        #expect(sut.days == 3)
+        #expect(sut.hours == 4)
+        #expect(sut.minutes == 5)
+        #expect(sut.seconds == 6)
     }
 
-    func testInitPeriodWithProps() {
+    @Test func initPeriodWithProps() {
         let sut = Period(fullProps)
-        XCTAssertEqual(sut.years, 1)
-        XCTAssertEqual(sut.months, 2)
-        XCTAssertEqual(sut.days, 3)
+        #expect(sut.years == 1)
+        #expect(sut.months == 2)
+        #expect(sut.days == 3)
     }
 
-    func testInitDurationWithProps() {
+    @Test func initDurationWithProps() {
         let sut = Duration(fullProps)
-        XCTAssertEqual(sut.hours, 4)
-        XCTAssertEqual(sut.minutes, 5)
-        XCTAssertEqual(sut.seconds, 6)
+        #expect(sut.hours == 4)
+        #expect(sut.minutes == 5)
+        #expect(sut.seconds == 6)
     }
 
-    func testInitDateComponentsWithProps() {
+    @Test func initDateComponentsWithProps() {
         let sut = DateComponents(fullProps)
-        XCTAssertEqual(sut.year, 1)
-        XCTAssertEqual(sut.month, 2)
-        XCTAssertEqual(sut.day, 3)
-        XCTAssertEqual(sut.hour, 4)
-        XCTAssertEqual(sut.minute, 5)
-        XCTAssertEqual(sut.second, 6)
+        #expect(sut.year == 1)
+        #expect(sut.month == 2)
+        #expect(sut.day == 3)
+        #expect(sut.hour == 4)
+        #expect(sut.minute == 5)
+        #expect(sut.second == 6)
     }
 }
 

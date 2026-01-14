@@ -1,9 +1,9 @@
 import CustomDump
 import PeriodDuration
-import XCTest
+import Testing
 
-final class FoundationSupportTests: XCTestCase {
-    func testPeriodDurationAsDateComponents() {
+struct FoundationSupportTests {
+    @Test func periodDurationAsDateComponents() {
         expectNoDifference(
             PeriodDuration.zero.asDateComponents,
             DateComponents(zeroProps)
@@ -14,7 +14,7 @@ final class FoundationSupportTests: XCTestCase {
         )
     }
 
-    func testPeriodAsDateComponents() {
+    @Test func periodAsDateComponents() {
         expectNoDifference(
             Period.zero.asDateComponents,
             DateComponents(year: 0, month: 0, day: 0)
@@ -25,7 +25,7 @@ final class FoundationSupportTests: XCTestCase {
         )
     }
 
-    func testDurationAsDateComponents() {
+    @Test func durationAsDateComponents() {
         expectNoDifference(
             Duration.zero.asDateComponents,
             DateComponents(hour: 0, minute: 0, second: 0)
@@ -48,39 +48,39 @@ final class FoundationSupportTests: XCTestCase {
         return formatter
     }
 
-    func testDateComponentsFormatter_stringFromPeriodDuration() {
+    @Test func dateComponentsFormatter_stringFromPeriodDuration() {
         let formatter = formatter(units: [.year, .month, .day, .hour, .minute, .second])
-        XCTAssertEqual(
-            formatter.string(from: PeriodDuration(fullProps)),
-            "1 year, 2 months, 3 days, 4 hours, 5 minutes, 6 seconds"
+        #expect(
+            formatter.string(from: PeriodDuration(fullProps))
+            == "1 year, 2 months, 3 days, 4 hours, 5 minutes, 6 seconds"
         )
-        XCTAssertEqual(
-            formatter.string(from: PeriodDuration.zero),
-            "0 seconds"
+        #expect(
+            formatter.string(from: PeriodDuration.zero)
+            == "0 seconds"
         )
     }
 
-    func testDateComponentsFormatter_stringFromPeriod() {
+    @Test func dateComponentsFormatter_stringFromPeriod() {
         let formatter = formatter(units: [.year, .month, .day])
-        XCTAssertEqual(
-            formatter.string(from: Period(fullProps)),
-            "1 year, 2 months, 3 days"
+        #expect(
+            formatter.string(from: Period(fullProps))
+            == "1 year, 2 months, 3 days"
         )
-        XCTAssertEqual(
-            formatter.string(from: Period.zero),
-            "0 days"
+        #expect(
+            formatter.string(from: Period.zero)
+            == "0 days"
         )
     }
 
-    func testDateComponentsFormatter_stringFromDuration() {
+    @Test func dateComponentsFormatter_stringFromDuration() {
         let formatter = formatter(units: [.hour, .minute, .second])
-        XCTAssertEqual(
-            formatter.string(from: Duration(fullProps)),
-            "4 hours, 5 minutes, 6 seconds"
+        #expect(
+            formatter.string(from: Duration(fullProps))
+            == "4 hours, 5 minutes, 6 seconds"
         )
-        XCTAssertEqual(
-            formatter.string(from: Duration.zero),
-            "0 seconds"
+        #expect(
+            formatter.string(from: Duration.zero)
+            == "0 seconds"
         )
     }
     #endif

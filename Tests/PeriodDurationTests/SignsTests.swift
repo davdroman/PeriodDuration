@@ -1,34 +1,34 @@
 import PeriodDuration
-import XCTest
+import Testing
 
-final class SignsTests: XCTestCase {
-    func testPeriodDurationSigns() {
-        XCTAssertEqual(-PeriodDuration.zero, PeriodDuration.zero)
-        XCTAssertEqual(-PeriodDuration(fullProps), PeriodDuration(years: -1, months: -2, days: -3, hours: -4, minutes: -5, seconds: -6))
-        XCTAssertEqual(-PeriodDuration(years: -1, months: -2, days: -3, hours: -4, minutes: -5, seconds: -6), PeriodDuration(fullProps))
+struct SignsTests {
+    @Test func periodDurationSigns() {
+        #expect(-PeriodDuration.zero == PeriodDuration.zero)
+        #expect(-PeriodDuration(fullProps) == PeriodDuration(years: -1, months: -2, days: -3, hours: -4, minutes: -5, seconds: -6))
+        #expect(-PeriodDuration(years: -1, months: -2, days: -3, hours: -4, minutes: -5, seconds: -6) == PeriodDuration(fullProps))
 
-        XCTAssertEqual(+PeriodDuration.zero, PeriodDuration.zero)
-        XCTAssertEqual(+PeriodDuration(fullProps), PeriodDuration(fullProps))
-        XCTAssertEqual(+PeriodDuration(years: -1, months: -2, days: -3, hours: -4, minutes: -5, seconds: -6), PeriodDuration(years: -1, months: -2, days: -3, hours: -4, minutes: -5, seconds: -6))
+        #expect(+PeriodDuration.zero == PeriodDuration.zero)
+        #expect(+PeriodDuration(fullProps) == PeriodDuration(fullProps))
+        #expect(+PeriodDuration(years: -1, months: -2, days: -3, hours: -4, minutes: -5, seconds: -6) == PeriodDuration(years: -1, months: -2, days: -3, hours: -4, minutes: -5, seconds: -6))
     }
 
-    func testPeriodSigns() {
-        XCTAssertEqual(-Period.zero, Period.zero)
-        XCTAssertEqual(-Period(fullProps), Period(years: -1, months: -2, days: -3))
-        XCTAssertEqual(-Period(years: -1, months: -2, days: -3), Period(fullProps))
+    @Test func periodSigns() {
+        #expect(-Period.zero == Period.zero)
+        #expect(-Period(fullProps) == Period(years: -1, months: -2, days: -3))
+        #expect(-Period(years: -1, months: -2, days: -3) == Period(fullProps))
 
-        XCTAssertEqual(+Period.zero, Period.zero)
-        XCTAssertEqual(+Period(fullProps), Period(fullProps))
-        XCTAssertEqual(+Period(years: -1, months: -2, days: -3), Period(years: -1, months: -2, days: -3))
+        #expect(+Period.zero == Period.zero)
+        #expect(+Period(fullProps) == Period(fullProps))
+        #expect(+Period(years: -1, months: -2, days: -3) == Period(years: -1, months: -2, days: -3))
     }
 
-    func testDurationSigns() {
-        XCTAssertEqual(-Duration.zero, Duration.zero)
-        XCTAssertEqual(-Duration(fullProps), Duration(hours: -4, minutes: -5, seconds: -6))
-        XCTAssertEqual(-Duration(hours: -4, minutes: -5, seconds: -6), Duration(fullProps))
+    @Test func durationSigns() {
+        #expect(-Duration.zero == Duration.zero)
+        #expect(-Duration(fullProps) == Duration(hours: -4, minutes: -5, seconds: -6))
+        #expect(-Duration(hours: -4, minutes: -5, seconds: -6) == Duration(fullProps))
 
-        XCTAssertEqual(+Duration.zero, Duration.zero)
-        XCTAssertEqual(+Duration(fullProps), Duration(fullProps))
-        XCTAssertEqual(+Duration(hours: -4, minutes: -5, seconds: -6), Duration(hours: -4, minutes: -5, seconds: -6))
+        #expect(+Duration.zero == Duration.zero)
+        #expect(+Duration(fullProps) == Duration(fullProps))
+        #expect(+Duration(hours: -4, minutes: -5, seconds: -6) == Duration(hours: -4, minutes: -5, seconds: -6))
     }
 }
