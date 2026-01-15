@@ -1,30 +1,30 @@
 import PeriodDuration
-import XCTest
+import Testing
 
-final class ISO8601Tests: XCTestCase {
-    func testPeriodDurationScenarios() throws {
+struct ISO8601Tests {
+    @Test func periodDurationScenarios() throws {
         for s in scenarios {
-            XCTAssertEqual(PeriodDuration(iso8601: s.input), s.output.map(PeriodDuration.init), "input: \(s.input)")
+            #expect(PeriodDuration(iso8601: s.input) == s.output.map(PeriodDuration.init), "input: \(s.input)")
             if let output = s.output, s.roundtrippingType == PeriodDuration.self {
-                XCTAssertEqual(PeriodDuration(output).formatted(style: .iso8601), s.input)
+                #expect(PeriodDuration(output).formatted(style: .iso8601) == s.input)
             }
         }
     }
 
-    func testPeriodScenarios() throws {
+    @Test func periodScenarios() throws {
         for s in scenarios {
-            XCTAssertEqual(Period(iso8601: s.input), s.output.map(Period.init), "input: \(s.input)")
+            #expect(Period(iso8601: s.input) == s.output.map(Period.init), "input: \(s.input)")
             if let output = s.output, s.roundtrippingType == Period.self {
-                XCTAssertEqual(Period(output).formatted(style: .iso8601), s.input)
+                #expect(Period(output).formatted(style: .iso8601) == s.input)
             }
         }
     }
 
-    func testDurationScenarios() throws {
+    @Test func durationScenarios() throws {
         for s in scenarios {
-            XCTAssertEqual(Duration(iso8601: s.input), s.output.map(Duration.init), "input: \(s.input)")
+            #expect(Duration(iso8601: s.input) == s.output.map(Duration.init), "input: \(s.input)")
             if let output = s.output, s.roundtrippingType == Duration.self {
-                XCTAssertEqual(Duration(output).formatted(style: .iso8601), s.input)
+                #expect(Duration(output).formatted(style: .iso8601) == s.input)
             }
         }
     }

@@ -1,28 +1,28 @@
 import PeriodDuration
-import XCTest
+import Testing
 
-final class ZeroTests: XCTestCase {
-    func testPeriodDurationZero() {
+struct ZeroTests {
+    @Test func periodDurationZero() {
         let sut = PeriodDuration.zero
-        XCTAssertEqual(sut.years, 0)
-        XCTAssertEqual(sut.months, 0)
-        XCTAssertEqual(sut.days, 0)
-        XCTAssertEqual(sut.hours, 0)
-        XCTAssertEqual(sut.minutes, 0)
-        XCTAssertEqual(sut.seconds, 0)
+        #expect(sut.years == 0)
+        #expect(sut.months == 0)
+        #expect(sut.days == 0)
+        #expect(sut.hours == 0)
+        #expect(sut.minutes == 0)
+        #expect(sut.seconds == 0)
     }
 
-    func testPeriodZero() {
+    @Test func periodZero() {
         let sut = Period.zero
-        XCTAssertEqual(sut.years, 0)
-        XCTAssertEqual(sut.months, 0)
-        XCTAssertEqual(sut.days, 0)
+        #expect(sut.years == 0)
+        #expect(sut.months == 0)
+        #expect(sut.days == 0)
     }
 
-    func testDurationZero() {
+    @Test func durationZero() {
         let sut = Duration.zero
-        XCTAssertEqual(sut.hours, 0)
-        XCTAssertEqual(sut.minutes, 0)
-        XCTAssertEqual(sut.seconds, 0)
+        #expect(sut.hours == 0)
+        #expect(sut.minutes == 0)
+        #expect(sut.seconds == 0)
     }
 }
