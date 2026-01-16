@@ -3,9 +3,34 @@ import IssueReporting
 import Parsing
 
 extension Period {
-    public enum StandardFormatStyle {
-        case iso8601
+    public struct ISO8601FormatStyle: Sendable, Hashable {
+        public init() {}
+
+        public func format(_ value: Period) -> String {
+            var result = "P"
+            result += value.years.withSuffix("Y")
+            result += value.months.withSuffix("M")
+            result += value.days.withSuffix("D")
+
+            guard value.hours != 0 || value.minutes != 0 || value.seconds != 0 else { return result }
+            result += "T"
+            result += value.hours.withSuffix("H")
+            result += value.minutes.withSuffix("M")
+            result += value.seconds.withSuffix("S")
+
+            return result
+        }
     }
+
+    public func formatted(_ style: ISO8601FormatStyle) -> String {
+        style.format(self)
+    }
+}
+
+extension Period.ISO8601FormatStyle: FormatStyle {}
+
+extension FormatStyle where Self == Period.ISO8601FormatStyle {
+    public static var iso8601: Self { .init() }
 }
 
 // MARK: Parsing
@@ -68,27 +93,6 @@ fileprivate struct ISO8601PeriodParser: Parser, Sendable {
     }
 }
 
-// MARK: Printing
-extension Period {
-    public func formatted(style: StandardFormatStyle) -> String {
-        switch style {
-        case .iso8601:
-            var result = ""
-            result += "P"
-            result += self.years.withSuffix("Y")
-            result += self.months.withSuffix("M")
-            result += self.days.withSuffix("D")
-
-            guard self.hours != 0 || self.minutes != 0 || self.seconds != 0 else { return result }
-            result += "T"
-            result += self.hours.withSuffix("H")
-            result += self.minutes.withSuffix("M")
-            result += self.seconds.withSuffix("S")
-
-            return result
-        }
-    }
-}
 
 fileprivate extension Numeric {
     func withSuffix(_ c: Character) -> String {

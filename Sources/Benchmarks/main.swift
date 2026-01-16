@@ -6,7 +6,7 @@ benchmark("parse Period") {
 }
 
 benchmark("print Period") {
-    _ = Period(years: 3, months: 3, days: 3, hours: 3, minutes: 3, seconds: 3).formatted(style: .iso8601)
+    _ = Period(years: 3, months: 3, days: 3, hours: 3, minutes: 3, seconds: 3).formatted(.iso8601)
 }
 
 Benchmark.main()
