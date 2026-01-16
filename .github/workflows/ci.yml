@@ -58,7 +58,7 @@ jobs:
           swift: ~${{ matrix.swift }}
           action: ${{ matrix.action }}
           platform: ${{ matrix.platform }}
-          scheme: PeriodDuration
+          scheme: Period
 
   linux:
     name: Linux (Swift ${{ matrix.swift }})
