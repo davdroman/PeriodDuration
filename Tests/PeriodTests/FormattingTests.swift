@@ -3,7 +3,6 @@ import Foundation
 import Period
 import Testing
 
-@Suite(.serialized)
 struct FormattingTests {
     let enLocale = Locale(identifier: "en_GB")
     let esLocale = Locale(identifier: "es_ES")
