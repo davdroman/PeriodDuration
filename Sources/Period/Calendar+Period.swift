@@ -1,18 +1,5 @@
 import Foundation
 
-extension DateComponents {
-    init(_ period: Period) {
-        self.init(
-            year: period.years,
-            month: period.months,
-            day: period.days,
-            hour: period.hours,
-            minute: period.minutes,
-            second: period.seconds
-        )
-    }
-}
-
 extension Calendar {
     public func date(byAdding period: Period, to date: Date, wrappingComponents: Bool = false) -> Date? {
         self.date(byAdding: DateComponents(period), to: date, wrappingComponents: wrappingComponents)
@@ -27,6 +14,19 @@ extension Calendar {
             hours: components.hour ?? 0,
             minutes: components.minute ?? 0,
             seconds: components.second ?? 0
+        )
+    }
+}
+
+extension DateComponents {
+    init(_ period: Period) {
+        self.init(
+            year: period.years,
+            month: period.months,
+            day: period.days,
+            hour: period.hours,
+            minute: period.minutes,
+            second: period.seconds
         )
     }
 }
