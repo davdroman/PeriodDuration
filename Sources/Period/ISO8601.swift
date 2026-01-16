@@ -1,4 +1,5 @@
 import Foundation
+import IssueReporting
 import Parsing
 
 extension Period {
@@ -13,9 +14,9 @@ extension Period {
         do {
             self = try ISO8601PeriodParser().parse(rawValue)
         } catch {
-            #if DEBUG
-            print("[\(Self.self)]", error)
-            #endif
+            if !isTesting {
+                print("[Period]", error)
+            }
             return nil
         }
     }
