@@ -2,12 +2,49 @@
 import Foundation
 
 extension Period {
+    public struct FormatStyle: Hashable, Sendable {
+        public static let positional = FormatStyle(.positional)
+        public static let abbreviated = FormatStyle(.abbreviated)
+        public static let brief = FormatStyle(.brief)
+        public static let short = FormatStyle(.short)
+        public static let full = FormatStyle(.full)
+        public static let spellOut = FormatStyle(.spellOut)
+
+        fileprivate let rawValue: DateComponentsFormatter.UnitsStyle
+        private init(_ rawValue: DateComponentsFormatter.UnitsStyle) { self.rawValue = rawValue }
+    }
+
+    public struct Unit: OptionSet, Hashable, Sendable {
+        public static let year = Unit(rawValue: 1 << 0)
+        public static let month = Unit(rawValue: 1 << 1)
+        public static let day = Unit(rawValue: 1 << 2)
+        public static let hour = Unit(rawValue: 1 << 3)
+        public static let minute = Unit(rawValue: 1 << 4)
+        public static let second = Unit(rawValue: 1 << 5)
+
+        public static let all: Unit = [.year, .month, .day, .hour, .minute, .second]
+
+        public let rawValue: Int
+        public init(rawValue: Int) { self.rawValue = rawValue }
+
+        fileprivate var calendarUnits: NSCalendar.Unit {
+            var units: NSCalendar.Unit = []
+            if contains(.year) { units.insert(.year) }
+            if contains(.month) { units.insert(.month) }
+            if contains(.day) { units.insert(.day) }
+            if contains(.hour) { units.insert(.hour) }
+            if contains(.minute) { units.insert(.minute) }
+            if contains(.second) { units.insert(.second) }
+            return units
+        }
+    }
+
     public func formatted(
-        style: DateComponentsFormatter.UnitsStyle = .full,
-        allowedUnits: NSCalendar.Unit = [.year, .month, .day, .hour, .minute, .second],
+        style: FormatStyle = .full,
+        allowedUnits: Unit = .all,
         locale: Locale
     ) -> String {
-        let config = FormatterConfig(style: style, allowedUnits: allowedUnits, locale: locale)
+        let config = FormatterConfig(style: style.rawValue, allowedUnits: allowedUnits.calendarUnits, locale: locale)
         let formatter = FormatterCache.shared.formatter(for: config)
         return formatter.string(from: DateComponents(self)) ?? ""
     }
