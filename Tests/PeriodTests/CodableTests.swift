@@ -1,24 +1,22 @@
-import CustomDump
 import JSONTesting
 import Period
 import Testing
 
 struct CodableTests {
     @Test(arguments: scenarios)
-    func period(_ s: Scenario) throws {
-        let json = JSON.string(s.input)
-        let codable = s.output
+    func period(input: String, output: Period?, identical: Bool) throws {
+        let json = JSON.string(input)
         let message = "rawValue: \(json)"
 
-        try XCTAssertJSONCoding(codable, message)
+        try XCTAssertJSONCoding(output, message)
 
-        if s.identical {
-            try XCTAssertJSONEncoding(codable, json)
+        if identical {
+            try XCTAssertJSONEncoding(output, json)
         }
 
         do {
-            try XCTAssertJSONDecoding(json, codable, message)
-        } catch let error as DecodingError where codable == nil {
+            try XCTAssertJSONDecoding(json, output, message)
+        } catch let error as DecodingError where output == nil {
             switch error {
             case .dataCorrupted(let context):
                 #expect(context.debugDescription == "Invalid Period ISO 8601 value \(json)")
