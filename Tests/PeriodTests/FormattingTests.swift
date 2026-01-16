@@ -1,3 +1,4 @@
+#if !os(Linux)
 import Foundation
 import Period
 import Testing
@@ -61,3 +62,4 @@ extension FormattingTests {
         #expect(fullResult.contains("6"))
     }
 }
+#endif

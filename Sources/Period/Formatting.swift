@@ -1,3 +1,4 @@
+#if !os(Linux)
 import Foundation
 
 extension Period {
@@ -20,3 +21,4 @@ fileprivate let formatter: DateComponentsFormatter = {
     formatter.calendar = calendar
     return formatter
 }()
+#endif
