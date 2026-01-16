@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "PeriodDuration",
+    name: "Period",
     platforms: [
         .iOS(.v13),
         .tvOS(.v13),
@@ -11,19 +11,19 @@ let package = Package(
         .watchOS(.v6),
     ],
     products: [
-        .library(name: "PeriodDuration", targets: ["PeriodDuration"]),
+        .library(name: "Period", targets: ["Period"]),
     ],
     targets: [
-        .target(name: "PeriodDuration", dependencies: [
+        .target(name: "Period", dependencies: [
             .product(name: "Parsing", package: "swift-parsing"),
         ]),
-        .testTarget(name: "PeriodDurationTests", dependencies: [
-            .target(name: "PeriodDuration"),
+        .testTarget(name: "PeriodTests", dependencies: [
+            .target(name: "Period"),
             .product(name: "JSONTesting", package: "swift-json-testing"),
         ]),
 
         .executableTarget(name: "Benchmarks", dependencies: [
-            .target(name: "PeriodDuration"),
+            .target(name: "Period"),
             .product(name: "Benchmark", package: "swift-benchmark"),
         ]),
     ]

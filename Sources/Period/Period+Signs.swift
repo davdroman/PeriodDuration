@@ -1,6 +1,6 @@
 import Foundation
 
-extension PeriodDuration {
+extension Period {
     public static prefix func + (rhs: Self) -> Self {
         rhs
     }

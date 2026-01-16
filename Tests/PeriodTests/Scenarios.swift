@@ -1,6 +1,6 @@
 import Foundation
 import JSONTesting
-import PeriodDuration
+import Period
 
 let scenarios: [Scenario] = [
     // MARK: Full
@@ -23,7 +23,7 @@ let scenarios: [Scenario] = [
     .init("PYMWDTH3MS", .init(minutes: 3)), // m
     .init("PYMWDTHM3S", .init(seconds: 3)), // S
     .init("P3Y3M3W3DT3H3M3S", .init(years: 3, months: 3, days: 24, hours: 3, minutes: 3, seconds: 3)), // YMWDHMS
-    .init("P3Y3M3DT3H3M3S", .init(years: 3, months: 3, days: 3, hours: 3, minutes: 3, seconds: 3), roundtripWhen: PeriodDuration.self), // YMDHMS
+    .init("P3Y3M3DT3H3M3S", .init(years: 3, months: 3, days: 3, hours: 3, minutes: 3, seconds: 3), roundtripWhen: Period.self), // YMDHMS
 
     // MARK: Period Full
     .init("YMWD", nil),
@@ -95,7 +95,7 @@ let scenarios: [Scenario] = [
     .init("PT3H3MS", .init(hours: 3, minutes: 3)), // HM
     .init("PTH3M3S", .init(minutes: 3, seconds: 3)), // MS
     .init("PT3HM3S", .init(hours: 3, seconds: 3)), // HS
-    .init("PT3H3M3S", .init(hours: 3, minutes: 3, seconds: 3), roundtripWhen: Duration.self), // HMS
+    .init("PT3H3M3S", .init(hours: 3, minutes: 3, seconds: 3), roundtripWhen: Period.self), // HMS
 
     // MARK: Duration Individual
     .init("H", nil),
@@ -103,9 +103,9 @@ let scenarios: [Scenario] = [
     .init("3H", nil),
     .init("T3H", nil),
 
-    .init("PT", .init(), roundtripWhen: Duration.self),
+    .init("PT", .init()),
     .init("PTH", .init()),
-    .init("PT3H", .init(hours: 3), roundtripWhen: Duration.self),
+    .init("PT3H", .init(hours: 3), roundtripWhen: Period.self),
 
     .init("M", nil),
     .init("TM", nil),
@@ -113,7 +113,7 @@ let scenarios: [Scenario] = [
     .init("T3M", nil),
 
     .init("PTM", .init()),
-    .init("PT3M", .init(minutes: 3), roundtripWhen: Duration.self),
+    .init("PT3M", .init(minutes: 3), roundtripWhen: Period.self),
 
     .init("S", nil),
     .init("TS", nil),
@@ -121,7 +121,7 @@ let scenarios: [Scenario] = [
     .init("T3S", nil),
 
     .init("PTS", .init()),
-    .init("PT3S", .init(seconds: 3), roundtripWhen: Duration.self),
+    .init("PT3S", .init(seconds: 3), roundtripWhen: Period.self),
 
     // MARK: Edge Cases
     .init("", nil),

@@ -1,5 +1,5 @@
 import Foundation
-import PeriodDuration
+import Period
 import Testing
 
 struct Props {
@@ -11,32 +11,12 @@ struct Props {
     var seconds: Int = 0
 }
 
-extension PeriodDuration {
-    init(_ props: Props) {
-        self.init(
-            years: props.years,
-            months: props.months,
-            days: props.days,
-            hours: props.hours,
-            minutes: props.minutes,
-            seconds: props.seconds
-        )
-    }
-}
-
 extension Period {
     init(_ props: Props) {
         self.init(
             years: props.years,
             months: props.months,
-            days: props.days
-        )
-    }
-}
-
-extension Duration {
-    init(_ props: Props) {
-        self.init(
+            days: props.days,
             hours: props.hours,
             minutes: props.minutes,
             seconds: props.seconds
@@ -58,25 +38,11 @@ extension DateComponents {
 }
 
 struct PropsTests {
-    @Test func initPeriodDurationWithProps() {
-        let sut = PeriodDuration(fullProps)
-        #expect(sut.years == 1)
-        #expect(sut.months == 2)
-        #expect(sut.days == 3)
-        #expect(sut.hours == 4)
-        #expect(sut.minutes == 5)
-        #expect(sut.seconds == 6)
-    }
-
     @Test func initPeriodWithProps() {
         let sut = Period(fullProps)
         #expect(sut.years == 1)
         #expect(sut.months == 2)
         #expect(sut.days == 3)
-    }
-
-    @Test func initDurationWithProps() {
-        let sut = Duration(fullProps)
         #expect(sut.hours == 4)
         #expect(sut.minutes == 5)
         #expect(sut.seconds == 6)

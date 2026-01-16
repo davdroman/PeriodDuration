@@ -1,24 +1,12 @@
 import CustomDump
 import JSONTesting
-import PeriodDuration
+import Period
 import Testing
 
 struct CodableTests {
-    @Test func periodDurationScenarios() throws {
-        for s in scenarios {
-            try assert(.string(s.input), s.output.map(PeriodDuration.init), identical: s.roundtrippingType == PeriodDuration.self)
-        }
-    }
-
     @Test func periodScenarios() throws {
         for s in scenarios {
             try assert(.string(s.input), s.output.map(Period.init), identical: s.roundtrippingType == Period.self)
-        }
-    }
-
-    @Test func durationScenarios() throws {
-        for s in scenarios {
-            try assert(.string(s.input), s.output.map(Duration.init), identical: s.roundtrippingType == Duration.self)
         }
     }
 }

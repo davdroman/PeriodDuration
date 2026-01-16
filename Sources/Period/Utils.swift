@@ -25,38 +25,14 @@ enum Parsers {
         weeks
         days
     }
-    .map { years, months, weeks, days in
-        Period(years: years, months: months, days: weeks * 7 + days)
-    }
 
     static let durationValues = Parse {
         hours
         minutes
         seconds
     }
-    .map(Duration.init(hours:minutes:seconds:))
 
     static let period = Parse {
-        pDesignator
-        periodValues
-        Skip {
-            Optionally {
-                "T".utf8
-                durationValues
-            }
-        }
-    }
-
-    static let duration = Parse {
-        pDesignator
-        OneOf {
-            Skip { PrefixThrough("T".utf8) }
-            Skip { Rest() }.replaceError(with: ())
-        }
-        durationValues
-    }
-
-    static let periodDuration = Parse {
         pDesignator
         periodValues
         OneOf {
@@ -65,7 +41,17 @@ enum Parsers {
         }
         durationValues
     }
-    .map(PeriodDuration.init(period:duration:))
+    .map { (years, months, weeks, days, durationVals) in
+        let (hours, minutes, seconds) = durationVals
+        return Period(
+            years: years,
+            months: months,
+            days: weeks * 7 + days,
+            hours: hours,
+            minutes: minutes,
+            seconds: seconds
+        )
+    }
 }
 
 private extension Parsers {

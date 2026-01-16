@@ -1,6 +1,6 @@
 import Foundation
 
-extension PeriodDuration: CustomStringConvertible {
+extension Period: CustomStringConvertible {
     public var description: String {
         [
             self.years.nilIfZero.map { "\($0) year\($0 == 1 ? "" : "s")" },

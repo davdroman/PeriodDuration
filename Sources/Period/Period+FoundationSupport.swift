@@ -3,9 +3,12 @@ import Foundation
 extension Period {
     public var asDateComponents: DateComponents {
         DateComponents(
-            year: years,
-            month: months,
-            day: days
+            year: self.years,
+            month: self.months,
+            day: self.days,
+            hour: self.hours,
+            minute: self.minutes,
+            second: self.seconds
         )
     }
 }

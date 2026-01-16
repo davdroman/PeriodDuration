@@ -1,10 +1,10 @@
 #if !os(Linux)
 import Foundation
 
-extension Duration {
+extension Period {
     public func formatted(
         style: DateComponentsFormatter.UnitsStyle = .full,
-        allowedUnits: NSCalendar.Unit = [.hour, .minute, .second],
+        allowedUnits: NSCalendar.Unit = [.year, .month, .day, .hour, .minute, .second],
         locale: Locale
     ) -> String {
         formatter.allowedUnits = allowedUnits
