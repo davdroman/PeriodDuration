@@ -10,7 +10,7 @@ extension Period {
         formatter.allowedUnits = allowedUnits
         formatter.unitsStyle = style
         formatter.calendar?.locale = locale
-        return formatter.string(from: self) ?? ""
+        return formatter.string(from: DateComponents(self)) ?? ""
     }
 }
 

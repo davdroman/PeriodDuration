@@ -1,42 +1,48 @@
-import CustomDump
 import Foundation
 import Period
 import Testing
 
 struct FoundationSupportTests {
-    @Test func periodAsDateComponents() {
-        expectNoDifference(
-            Period.zero.asDateComponents,
-            DateComponents(zeroProps)
-        )
-        expectNoDifference(
-            Period(fullProps).asDateComponents,
-            DateComponents(fullProps)
-        )
+    let calendar = Calendar(identifier: .iso8601)
+
+    @Test func calendarDateByAddingPeriod() {
+        let date = Date(timeIntervalSinceReferenceDate: 0) // 2001-01-01 00:00:00 UTC
+        let period = Period(years: 1, months: 2, days: 3, hours: 4, minutes: 5, seconds: 6)
+
+        let result = calendar.date(byAdding: period, to: date)
+
+        #expect(result != nil)
+        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: result!)
+        #expect(components.year == 2002)
+        #expect(components.month == 3)
+        #expect(components.day == 4)
+        #expect(components.hour == 4)
+        #expect(components.minute == 5)
+        #expect(components.second == 6)
     }
 
-    #if !os(Linux)
-    func formatter(units: NSCalendar.Unit) -> DateComponentsFormatter {
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = units
-        formatter.unitsStyle = .full
-        var calendar = Calendar(identifier: .iso8601)
-        calendar.locale = Locale(identifier: "en_US_POSIX")
-        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
-        formatter.calendar = calendar
-        return formatter
+    @Test func calendarPeriodFromDates() {
+        let start = Date(timeIntervalSinceReferenceDate: 0) // 2001-01-01 00:00:00 UTC
+        let end = calendar.date(byAdding: DateComponents(year: 1, month: 2, day: 3, hour: 4, minute: 5, second: 6), to: start)!
+
+        let period = calendar.period(from: start, to: end)
+
+        #expect(period.years == 1)
+        #expect(period.months == 2)
+        #expect(period.days == 3)
+        #expect(period.hours == 4)
+        #expect(period.minutes == 5)
+        #expect(period.seconds == 6)
     }
 
-    @Test func dateComponentsFormatter_stringFromPeriod() {
-        let formatter = formatter(units: [.year, .month, .day, .hour, .minute, .second])
-        #expect(
-            formatter.string(from: Period(fullProps))
-            == "1 year, 2 months, 3 days, 4 hours, 5 minutes, 6 seconds"
-        )
-        #expect(
-            formatter.string(from: Period.zero)
-            == "0 seconds"
-        )
+    @Test func calendarPeriodFromDatesNegative() {
+        let start = Date(timeIntervalSinceReferenceDate: 0)
+        let end = calendar.date(byAdding: DateComponents(year: -1, month: -2, day: -3), to: start)!
+
+        let period = calendar.period(from: start, to: end)
+
+        #expect(period.years == -1)
+        #expect(period.months == -2)
+        #expect(period.days == -3)
     }
-    #endif
 }
