@@ -58,19 +58,29 @@ private struct FormatterCache: Sendable {
     }
 }
 
+// Adapted from https://github.com/apple/swift-argument-parser/blob/main/Sources/ArgumentParser/Utilities/Mutex.swift
 private struct Mutex<State>: @unchecked Sendable {
-    private let lock = NSLock()
-    private let storage: UnsafeMutablePointer<State>
+    private final class Buffer: ManagedBuffer<State, os_unfair_lock> {
+        deinit {
+            _ = withUnsafeMutablePointerToElements { $0.deinitialize(count: 1) }
+        }
+    }
+
+    private let buffer: ManagedBuffer<State, os_unfair_lock>
 
     init(_ initialState: State) {
-        storage = .allocate(capacity: 1)
-        storage.initialize(to: initialState)
+        buffer = Buffer.create(minimumCapacity: 1) { buffer in
+            buffer.withUnsafeMutablePointerToElements { $0.initialize(to: os_unfair_lock()) }
+            return initialState
+        }
     }
 
     func withLock<R>(_ body: (inout State) throws -> R) rethrows -> R {
-        lock.lock()
-        defer { lock.unlock() }
-        return try body(&storage.pointee)
+        try buffer.withUnsafeMutablePointers { state, lock in
+            os_unfair_lock_lock(lock)
+            defer { os_unfair_lock_unlock(lock) }
+            return try body(&state.pointee)
+        }
     }
 }
 #endif
