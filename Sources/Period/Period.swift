@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Period: Hashable {
+public struct Period: Hashable, Sendable {
     public var years: Int
     public var months: Int
     public var days: Int

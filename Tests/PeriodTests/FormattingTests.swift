@@ -15,7 +15,7 @@ extension FormattingTests {
             == "0 seconds"
         )
         #expect(
-            Period(fullProps).formatted(.full.locale(enLocale))
+            Period(years: 1, months: 2, days: 3, hours: 4, minutes: 5, seconds: 6).formatted(.full.locale(enLocale))
             == "1 year, 2 months, 3 days, 4 hours, 5 minutes, 6 seconds"
         )
     }
@@ -28,7 +28,7 @@ extension FormattingTests {
             == "0 secs"
         )
         #expect(
-            Period(fullProps).formatted(.short.locale(enLocale))
+            Period(years: 1, months: 2, days: 3, hours: 4, minutes: 5, seconds: 6).formatted(.short.locale(enLocale))
             == "1 yr, 2 mths, 3 days, 4 hrs, 5 min, 6 secs"
         )
     }
@@ -41,7 +41,7 @@ extension FormattingTests {
             == "0 seconds"
         )
         #expect(
-            Period(fullProps).formatted(.full.allowedUnits([.day, .hour, .minute, .second]).locale(enLocale))
+            Period(years: 1, months: 2, days: 3, hours: 4, minutes: 5, seconds: 6).formatted(.full.allowedUnits([.day, .hour, .minute, .second]).locale(enLocale))
             == "427 days, 4 hours, 5 minutes, 6 seconds"
         )
     }
@@ -54,7 +54,7 @@ extension FormattingTests {
             == "0 segundos"
         )
         #expect(
-            Period(fullProps).formatted(.full.locale(esLocale))
+            Period(years: 1, months: 2, days: 3, hours: 4, minutes: 5, seconds: 6).formatted(.full.locale(esLocale))
             == "1 año, 2 meses, 3 días, 4 horas, 5 minutos y 6 segundos"
         )
     }

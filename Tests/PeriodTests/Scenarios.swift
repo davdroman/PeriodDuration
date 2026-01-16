@@ -1,5 +1,3 @@
-import Foundation
-import JSONTesting
 import Period
 
 let scenarios: [Scenario] = [
@@ -14,16 +12,16 @@ let scenarios: [Scenario] = [
     .init("YMWDTHM3S", nil), // S
     .init("3Y3M3W3DT3H3M3S", nil), // YMWDHMS
 
-    .init("PYMWDTHMS", .init()),
-    .init("P3YMWDTHMS", .init(years: 3)), // Y
-    .init("PY3MWDTHMS", .init(months: 3)), // M
-    .init("PYM3WDTHMS", .init(days: 21)), // W
-    .init("PYMW3DTHMS", .init(days: 3)), // D
-    .init("PYMWDT3HMS", .init(hours: 3)), // H
-    .init("PYMWDTH3MS", .init(minutes: 3)), // m
-    .init("PYMWDTHM3S", .init(seconds: 3)), // S
-    .init("P3Y3M3W3DT3H3M3S", .init(years: 3, months: 3, days: 24, hours: 3, minutes: 3, seconds: 3)), // YMWDHMS
-    .init("P3Y3M3DT3H3M3S", .init(years: 3, months: 3, days: 3, hours: 3, minutes: 3, seconds: 3), roundtripWhen: Period.self), // YMDHMS
+    .init("PYMWDTHMS", Period()),
+    .init("P3YMWDTHMS", Period(years: 3)), // Y
+    .init("PY3MWDTHMS", Period(months: 3)), // M
+    .init("PYM3WDTHMS", Period(days: 21)), // W
+    .init("PYMW3DTHMS", Period(days: 3)), // D
+    .init("PYMWDT3HMS", Period(hours: 3)), // H
+    .init("PYMWDTH3MS", Period(minutes: 3)), // m
+    .init("PYMWDTHM3S", Period(seconds: 3)), // S
+    .init("P3Y3M3W3DT3H3M3S", Period(years: 3, months: 3, days: 24, hours: 3, minutes: 3, seconds: 3)), // YMWDHMS
+    .init("P3Y3M3DT3H3M3S", Period(years: 3, months: 3, days: 3, hours: 3, minutes: 3, seconds: 3), identical: true), // YMDHMS
 
     // MARK: Period Full
     .init("YMWD", nil),
@@ -39,44 +37,44 @@ let scenarios: [Scenario] = [
     .init("Y3M3W3D", nil), // MWD
     .init("3Y3M3W3D", nil), // YMWD
 
-    .init("PYMWD", .init()),
-    .init("P3YMWD", .init(years: 3)), // Y
-    .init("PY3MWD", .init(months: 3)), // M
-    .init("PYM3WD", .init(days: 21)), // W
-    .init("PYMW3D", .init(days: 3)), // D
-    .init("P3Y3MWD", .init(years: 3, months: 3)), // YM
-    .init("PYM3W3D", .init(days: 24)), // WD
-    .init("P3YM3WD", .init(years: 3, days: 21)), // YW
-    .init("P3YMW3D", .init(years: 3, days: 3)), // YD
-    .init("P3Y3M3WD", .init(years: 3, months: 3, days: 21)), // YMW
-    .init("PY3M3W3D", .init(months: 3, days: 24)), // MWD
-    .init("P3Y3M3W3D", .init(years: 3, months: 3, days: 24)), // YMWD
-    .init("P3Y3M3D", .init(years: 3, months: 3, days: 3), roundtripWhen: Period.self), // YMD
+    .init("PYMWD", Period()),
+    .init("P3YMWD", Period(years: 3)), // Y
+    .init("PY3MWD", Period(months: 3)), // M
+    .init("PYM3WD", Period(days: 21)), // W
+    .init("PYMW3D", Period(days: 3)), // D
+    .init("P3Y3MWD", Period(years: 3, months: 3)), // YM
+    .init("PYM3W3D", Period(days: 24)), // WD
+    .init("P3YM3WD", Period(years: 3, days: 21)), // YW
+    .init("P3YMW3D", Period(years: 3, days: 3)), // YD
+    .init("P3Y3M3WD", Period(years: 3, months: 3, days: 21)), // YMW
+    .init("PY3M3W3D", Period(months: 3, days: 24)), // MWD
+    .init("P3Y3M3W3D", Period(years: 3, months: 3, days: 24)), // YMWD
+    .init("P3Y3M3D", Period(years: 3, months: 3, days: 3), identical: true), // YMD
 
     // MARK: Period Individual
     .init("Y", nil),
     .init("3Y", nil),
 
-    .init("PY", .init()),
-    .init("P3Y", .init(years: 3)),
+    .init("PY", Period()),
+    .init("P3Y", Period(years: 3)),
 
     .init("M", nil),
     .init("3M", nil),
 
-    .init("PM", .init()),
-    .init("P3M", .init(months: 3)),
+    .init("PM", Period()),
+    .init("P3M", Period(months: 3)),
 
     .init("W", nil),
     .init("3W", nil),
 
-    .init("PW", .init()),
-    .init("P3W", .init(days: 21)),
+    .init("PW", Period()),
+    .init("P3W", Period(days: 21)),
 
     .init("D", nil),
     .init("3D", nil),
 
-    .init("PD", .init()),
-    .init("P3D", .init(days: 3)),
+    .init("PD", Period()),
+    .init("P3D", Period(days: 3)),
 
     // MARK: Duration Full
     .init("THMS", nil),
@@ -88,14 +86,14 @@ let scenarios: [Scenario] = [
     .init("T3HM3S", nil), // HS
     .init("T3H3M3S", nil), // HMS
 
-    .init("PTHMS", .init()),
-    .init("PT3HMS", .init(hours: 3)), // H
-    .init("PTH3MS", .init(minutes: 3)), // M
-    .init("PTHM3S", .init(seconds: 3)), // S
-    .init("PT3H3MS", .init(hours: 3, minutes: 3)), // HM
-    .init("PTH3M3S", .init(minutes: 3, seconds: 3)), // MS
-    .init("PT3HM3S", .init(hours: 3, seconds: 3)), // HS
-    .init("PT3H3M3S", .init(hours: 3, minutes: 3, seconds: 3), roundtripWhen: Period.self), // HMS
+    .init("PTHMS", Period()),
+    .init("PT3HMS", Period(hours: 3)), // H
+    .init("PTH3MS", Period(minutes: 3)), // M
+    .init("PTHM3S", Period(seconds: 3)), // S
+    .init("PT3H3MS", Period(hours: 3, minutes: 3)), // HM
+    .init("PTH3M3S", Period(minutes: 3, seconds: 3)), // MS
+    .init("PT3HM3S", Period(hours: 3, seconds: 3)), // HS
+    .init("PT3H3M3S", Period(hours: 3, minutes: 3, seconds: 3), identical: true), // HMS
 
     // MARK: Duration Individual
     .init("H", nil),
@@ -103,25 +101,25 @@ let scenarios: [Scenario] = [
     .init("3H", nil),
     .init("T3H", nil),
 
-    .init("PT", .init()),
-    .init("PTH", .init()),
-    .init("PT3H", .init(hours: 3), roundtripWhen: Period.self),
+    .init("PT", Period()),
+    .init("PTH", Period()),
+    .init("PT3H", Period(hours: 3), identical: true),
 
     .init("M", nil),
     .init("TM", nil),
     .init("3M", nil),
     .init("T3M", nil),
 
-    .init("PTM", .init()),
-    .init("PT3M", .init(minutes: 3), roundtripWhen: Period.self),
+    .init("PTM", Period()),
+    .init("PT3M", Period(minutes: 3), identical: true),
 
     .init("S", nil),
     .init("TS", nil),
     .init("3S", nil),
     .init("T3S", nil),
 
-    .init("PTS", .init()),
-    .init("PT3S", .init(seconds: 3), roundtripWhen: Period.self),
+    .init("PTS", Period()),
+    .init("PT3S", Period(seconds: 3), identical: true),
 
     // MARK: Edge Cases
     .init("", nil),
@@ -145,20 +143,17 @@ let scenarios: [Scenario] = [
     .init(" PT32H ", nil),
 ]
 
-struct Scenario {
-    typealias Input = String
-    typealias Output = Props
-
+struct Scenario: Sendable {
     /// Raw ISO 8601 input
-    let input: Input
-    /// Expected props computed from input
-    let output: Output?
-    /// A type for which the input and output is exactly the same both ways (encoding & decoding)
-    let roundtrippingType: Any.Type?
+    let input: String
+    /// Expected Period parsed from input
+    let output: Period?
+    /// Whether input and output are exactly the same both ways (encoding & decoding)
+    let identical: Bool
 
-    init(_ input: Input, _ output: Output?, roundtripWhen roundtrippingType: Any.Type? = nil) {
+    init(_ input: String, _ output: Period?, identical: Bool = false) {
         self.input = input
         self.output = output
-        self.roundtrippingType = roundtrippingType
+        self.identical = identical
     }
 }
