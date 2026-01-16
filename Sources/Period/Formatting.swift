@@ -13,4 +13,12 @@ extension Period {
         return formatter.string(from: self) ?? ""
     }
 }
+
+fileprivate let formatter: DateComponentsFormatter = {
+    var formatter = DateComponentsFormatter()
+    var calendar = Calendar(identifier: .iso8601)
+    calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+    formatter.calendar = calendar
+    return formatter
+}()
 #endif

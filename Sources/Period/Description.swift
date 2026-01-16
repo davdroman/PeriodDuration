@@ -15,3 +15,9 @@ extension Period: CustomStringConvertible {
         .joined(separator: ", ")
     }
 }
+
+fileprivate extension Numeric {
+    var nilIfZero: Self? {
+        self == .zero ? nil : self
+    }
+}
