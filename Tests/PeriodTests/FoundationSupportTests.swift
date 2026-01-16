@@ -15,7 +15,6 @@ struct FoundationSupportTests {
         )
     }
 
-    #if !os(Linux)
     func formatter(units: NSCalendar.Unit) -> DateComponentsFormatter {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = units
@@ -38,5 +37,4 @@ struct FoundationSupportTests {
             == "0 seconds"
         )
     }
-    #endif
 }
