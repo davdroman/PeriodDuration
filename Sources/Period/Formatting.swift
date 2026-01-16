@@ -48,6 +48,7 @@ private struct FormatterCache: Sendable {
         formatter.allowedUnits = config.allowedUnits
 
         storage.withLock { cache in
+            // Prevent unbounded memory growth by clearing cache if too many unique configurations accumulate
             if cache.count > 100 {
                 cache.removeAll()
             }
