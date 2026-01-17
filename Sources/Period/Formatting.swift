@@ -1,4 +1,4 @@
-#if !os(Linux)
+#if canImport(Darwin)
 import Foundation
 
 extension Period {
