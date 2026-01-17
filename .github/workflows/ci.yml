@@ -83,6 +83,7 @@ jobs:
     name: Android (Swift ${{ matrix.swift }})
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         swift:
           - "6.0"
@@ -96,4 +97,3 @@ jobs:
         uses: skiptools/swift-android-action@v2
         with:
           swift-version: ${{ matrix.swift }}
-          free-disk-space: true
