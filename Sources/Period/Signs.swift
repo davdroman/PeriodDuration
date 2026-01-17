@@ -6,7 +6,7 @@ extension Period {
     }
 
     public static prefix func - (rhs: Self) -> Self {
-        Self(
+        Period(
             years: -rhs.years,
             months: -rhs.months,
             days: -rhs.days,

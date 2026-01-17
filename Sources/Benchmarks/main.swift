@@ -2,7 +2,7 @@ import Period
 import Benchmark
 
 benchmark("parse Period") {
-    _ = Period(iso8601: "P3Y3M3W3DT3H3M3S")
+    _ = try! Period("P3Y3M3W3DT3H3M3S", format: .iso8601)
 }
 
 benchmark("print Period") {
