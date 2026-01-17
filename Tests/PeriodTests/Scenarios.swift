@@ -123,6 +123,28 @@ let scenarios: [Scenario] = [
     ("PTS", nil, false),
     ("PT3S", Period(seconds: 3), true),
 
+    // MARK: Negative (ISO 8601-2)
+
+    // Leading sign
+    ("-P3Y", Period(years: -3), false),
+    ("-P1Y2M", Period(years: -1, months: -2), false),
+    ("-PT5H", Period(hours: -5), false),
+    ("-P1DT2H", Period(days: -1, hours: -2), false),
+    ("+P3Y", Period(years: 3), false),
+    ("+P1Y2M", Period(years: 1, months: 2), false),
+
+    // Per-component signs
+    ("P-3Y", Period(years: -3), true),
+    ("P-1Y2M", Period(years: -1, months: 2), true),
+    ("P1Y-2M", Period(years: 1, months: -2), true),
+    ("P-1Y-2M", Period(years: -1, months: -2), true),
+    ("PT-5H", Period(hours: -5), true),
+    ("P-1Y2M-3D", Period(years: -1, months: 2, days: -3), true),
+    ("P1Y2M3DT-4H5M-6S", Period(years: 1, months: 2, days: 3, hours: -4, minutes: 5, seconds: -6), true),
+
+    // MARK: Zero
+    ("PT0S", .zero, true),
+
     // MARK: Edge Cases
     ("", nil, false),
     (" ", nil, false),
