@@ -1,5 +1,5 @@
 {
-  "originHash" : "61f71b5898f7296a4a7269eeb46b3c0431234433fe34525adce49841f29b6535",
+  "originHash" : "19c1dbe5af5c4e70b36063f413197273c689e9b361ec7235066c9e0dc8c68903",
   "pins" : [
     {
       "identity" : "swift-argument-parser",
@@ -20,15 +20,6 @@
       }
     },
     {
-      "identity" : "swift-case-paths",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/swift-case-paths",
-      "state" : {
-        "revision" : "6989976265be3f8d2b5802c722f9ba168e227c71",
-        "version" : "1.7.2"
-      }
-    },
-    {
       "identity" : "swift-custom-dump",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-custom-dump",
@@ -44,24 +35,6 @@
       "state" : {
         "revision" : "de48704db4af7d448bc27aea305b39494fed6eec",
         "version" : "0.2.0"
-      }
-    },
-    {
-      "identity" : "swift-parsing",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/swift-parsing",
-      "state" : {
-        "revision" : "3432cb81164dd3d69a75d0d63205be5fbae2c34b",
-        "version" : "0.14.1"
-      }
-    },
-    {
-      "identity" : "swift-syntax",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/swiftlang/swift-syntax",
-      "state" : {
-        "revision" : "4799286537280063c85a32f09884cfbca301b1a1",
-        "version" : "602.0.0"
       }
     },
     {

@@ -14,9 +14,7 @@ let package = Package(
         .library(name: "Period", targets: ["Period"]),
     ],
     targets: [
-        .target(name: "Period", dependencies: [
-            .product(name: "Parsing", package: "swift-parsing"),
-        ]),
+        .target(name: "Period"),
         .testTarget(name: "PeriodTests", dependencies: [
             .target(name: "Period"),
             .product(name: "JSONTesting", package: "swift-json-testing"),
@@ -31,6 +29,5 @@ let package = Package(
 
 package.dependencies = [
     .package(url: "https://github.com/google/swift-benchmark", from: "0.1.2"),
-    .package(url: "https://github.com/pointfreeco/swift-parsing", from: "0.13.0"),
     .package(url: "https://github.com/davdroman/swift-json-testing", from: "0.2.0"),
 ]

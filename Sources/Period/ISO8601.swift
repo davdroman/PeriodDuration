@@ -1,5 +1,4 @@
 import Foundation
-import Parsing
 
 extension Period {
     public struct ISO8601FormatStyle: ParseableFormatStyle, ParseStrategy {
@@ -26,68 +25,70 @@ extension Period {
         public var parseStrategy: Self { self }
 
         public func parse(_ value: String) throws -> Period {
-            try Parser().parse(value)
+            guard let period = Parser.parse(value) else {
+                throw ParsingError(input: value)
+            }
+            return period
         }
 
-        struct Parser: Parsing.Parser, Sendable {
-            var body: some Parsing.Parser<Substring.UTF8View, Period> {
-                Parse {
-                    // Leading sign (ISO 8601-2)
-                    OneOf {
-                        "-".utf8.map { -1 }
-                        "+".utf8.map { 1 }
-                        Always(1)
-                    }
-                    Skip {
-                        "P".utf8
-                        Not {
-                            Digits(1...)
-                            Whitespace(0..., .horizontal)
-                            End()
-                        }
-                    }
-                    signedDigitsAndUnit("Y".utf8)
-                    signedDigitsAndUnit("M".utf8)
-                    signedDigitsAndUnit("W".utf8)
-                    signedDigitsAndUnit("D".utf8)
-                    OneOf {
-                        "T".utf8
-                        Skip { Rest() }.replaceError(with: ())
-                    }
-                    signedDigitsAndUnit("H".utf8)
-                    signedDigitsAndUnit("M".utf8)
-                    signedDigitsAndUnit("S".utf8)
+        public struct ParsingError: Error, CustomStringConvertible {
+            public let input: String
+
+            public var description: String {
+                "Invalid ISO 8601 duration: \"\(input)\""
+            }
+        }
+
+        enum Parser {
+            static let regex = try! NSRegularExpression(
+                pattern: #"([+-])?P(?:(-?\d+)?Y)?(?:(-?\d+)?M)?(?:(-?\d+)?W)?(?:(-?\d+)?D)?(?:T(?:(-?\d+)?H)?(?:(-?\d+)?M)?(?:(-?\d+)?S)?)?"#
+            )
+
+            static func parse(_ string: String) -> Period? {
+                let range = NSRange(string.startIndex..., in: string)
+                guard let match = regex.firstMatch(in: string, options: .anchored, range: range),
+                      match.range.length == string.utf16.count else {
+                    return nil
                 }
-                .compactMap { (leadingSign, years, months, weeks, days, hours, minutes, seconds) -> Period? in
-                    // Require at least one numeric value
-                    let hasValue = [years, months, weeks, days, hours, minutes, seconds].contains { $0 != nil }
-                    guard hasValue else { return nil }
-                    return Period(
-                        years: (years ?? 0) * leadingSign,
-                        months: (months ?? 0) * leadingSign,
-                        days: ((weeks ?? 0) * 7 + (days ?? 0)) * leadingSign,
-                        hours: (hours ?? 0) * leadingSign,
-                        minutes: (minutes ?? 0) * leadingSign,
-                        seconds: (seconds ?? 0) * leadingSign
-                    )
-                }
+                return period(from: match, in: string)
             }
 
-            func signedDigitsAndUnit(_ unit: String.UTF8View) -> some Parsing.Parser<Substring.UTF8View, Int?> {
-                OneOf {
-                    Parse {
-                        OneOf {
-                            "-".utf8.map { -1 }
-                            "+".utf8.map { 1 }
-                            Always(1)
-                        }
-                        Digits(1...)
-                        unit
-                    }.map { Optional($0 * $1) }
-                    unit.map { Int?.none }
+            static func period(from match: NSTextCheckingResult, in string: String) -> Period? {
+                func extractInt(at index: Int) -> Int? {
+                    let range = match.range(at: index)
+                    guard range.location != NSNotFound,
+                          let swiftRange = Range(range, in: string) else { return nil }
+                    return Int(string[swiftRange])
                 }
-                .replaceError(with: Int?.none)
-                .eraseToAnyParser()
+
+                let leadingSign: Int
+                if let signRange = Range(match.range(at: 1), in: string) {
+                    leadingSign = string[signRange] == "-" ? -1 : 1
+                } else {
+                    leadingSign = 1
+                }
+
+                let years = extractInt(at: 2)
+                let months = extractInt(at: 3)
+                let weeks = extractInt(at: 4)
+                let days = extractInt(at: 5)
+                let hours = extractInt(at: 6)
+                let minutes = extractInt(at: 7)
+                let seconds = extractInt(at: 8)
+
+                guard years != nil || months != nil || weeks != nil || days != nil ||
+                      hours != nil || minutes != nil || seconds != nil else {
+                    return nil
+                }
+
+                return Period(
+                    years: (years ?? 0) * leadingSign,
+                    months: (months ?? 0) * leadingSign,
+                    days: ((weeks ?? 0) * 7 + (days ?? 0)) * leadingSign,
+                    hours: (hours ?? 0) * leadingSign,
+                    minutes: (minutes ?? 0) * leadingSign,
+                    seconds: (seconds ?? 0) * leadingSign
+                )
             }
         }
     }
@@ -135,10 +136,16 @@ extension Period.ISO8601FormatStyle: CustomConsumingRegexComponent {
 
     public func consuming(_ input: String, startingAt index: String.Index, in bounds: Range<String.Index>) throws -> (upperBound: String.Index, output: Period)? {
         guard index < bounds.upperBound else { return nil }
-        var substr = input[index..<bounds.upperBound].utf8
-        guard let output = try? Period.ISO8601FormatStyle.Parser().parse(&substr) else {
+
+        let substring = String(input[index..<bounds.upperBound])
+        let range = NSRange(substring.startIndex..., in: substring)
+
+        guard let match = Parser.regex.firstMatch(in: substring, options: .anchored, range: range),
+              let period = Parser.period(from: match, in: substring) else {
             return nil
         }
-        return (String.Index(substr.startIndex, within: input)!, output)
+
+        let matchEnd = input.index(index, offsetBy: match.range.length)
+        return (matchEnd, period)
     }
 }
