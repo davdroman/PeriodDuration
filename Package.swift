@@ -6,8 +6,8 @@ let package = Package(
 	name: "Period",
 	platforms: [
 		.iOS(.v15),
-		.tvOS(.v15),
 		.macOS(.v12),
+		.tvOS(.v15),
 		.watchOS(.v8),
 	],
 	products: [
@@ -15,15 +15,22 @@ let package = Package(
 	],
 	targets: [
 		.target(name: "Period"),
-		.testTarget(name: "PeriodTests", dependencies: [
-			.target(name: "Period"),
-			.product(name: "JSONTesting", package: "swift-json-testing"),
-		]),
+		.testTarget(
+			name: "PeriodTests",
+			dependencies: [
+				"Period",
+				.product(name: "JSONTesting", package: "swift-json-testing"),
+			],
+			path: "Tests"
+		),
 
-		.executableTarget(name: "Benchmarks", dependencies: [
-			.target(name: "Period"),
-			.product(name: "Benchmark", package: "swift-benchmark"),
-		]),
+		.executableTarget(
+			name: "Benchmarks",
+			dependencies: [
+				"Period",
+				.product(name: "Benchmark", package: "swift-benchmark"),
+			]
+		),
 	]
 )
 
