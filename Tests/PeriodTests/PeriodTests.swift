@@ -1,39 +1,39 @@
 import Period
-import Testing
+import XCTest
 
-struct PeriodTests {
-	@Test func initWithAllComponents() {
+final class PeriodTests: XCTestCase {
+	func testInitWithAllComponents() {
 		let period = Period(years: 1, months: 2, days: 3, hours: 4, minutes: 5, seconds: 6)
-		#expect(period.years == 1)
-		#expect(period.months == 2)
-		#expect(period.days == 3)
-		#expect(period.hours == 4)
-		#expect(period.minutes == 5)
-		#expect(period.seconds == 6)
+		XCTAssertEqual(period.years, 1)
+		XCTAssertEqual(period.months, 2)
+		XCTAssertEqual(period.days, 3)
+		XCTAssertEqual(period.hours, 4)
+		XCTAssertEqual(period.minutes, 5)
+		XCTAssertEqual(period.seconds, 6)
 	}
 
-	@Test func initWithDefaults() {
+	func testInitWithDefaults() {
 		let period = Period(years: 1)
-		#expect(period.years == 1)
-		#expect(period.months == 0)
-		#expect(period.days == 0)
-		#expect(period.hours == 0)
-		#expect(period.minutes == 0)
-		#expect(period.seconds == 0)
+		XCTAssertEqual(period.years, 1)
+		XCTAssertEqual(period.months, 0)
+		XCTAssertEqual(period.days, 0)
+		XCTAssertEqual(period.hours, 0)
+		XCTAssertEqual(period.minutes, 0)
+		XCTAssertEqual(period.seconds, 0)
 	}
 
-	@Test func initEmpty() {
+	func testInitEmpty() {
 		let period = Period()
-		#expect(period == .zero)
+		XCTAssertEqual(period, .zero)
 	}
 
-	@Test func zero() {
+	func testZero() {
 		let period = Period.zero
-		#expect(period.years == 0)
-		#expect(period.months == 0)
-		#expect(period.days == 0)
-		#expect(period.hours == 0)
-		#expect(period.minutes == 0)
-		#expect(period.seconds == 0)
+		XCTAssertEqual(period.years, 0)
+		XCTAssertEqual(period.months, 0)
+		XCTAssertEqual(period.days, 0)
+		XCTAssertEqual(period.hours, 0)
+		XCTAssertEqual(period.minutes, 0)
+		XCTAssertEqual(period.seconds, 0)
 	}
 }

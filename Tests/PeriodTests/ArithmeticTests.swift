@@ -1,105 +1,105 @@
 import Period
-import Testing
+import XCTest
 
-struct ArithmeticTests {
+final class ArithmeticTests: XCTestCase {
 	// MARK: - Unary
 
-	@Test func unaryPlus() {
-		#expect(+Period.zero == Period.zero)
-		#expect(+Period(years: 1, months: 2, days: 3, hours: 4, minutes: 5, seconds: 6) == Period(years: 1, months: 2, days: 3, hours: 4, minutes: 5, seconds: 6))
-		#expect(+Period(years: -1, months: -2, days: -3, hours: -4, minutes: -5, seconds: -6) == Period(years: -1, months: -2, days: -3, hours: -4, minutes: -5, seconds: -6))
+	func testUnaryPlus() {
+		XCTAssertEqual(+Period.zero, Period.zero)
+		XCTAssertEqual(+Period(years: 1, months: 2, days: 3, hours: 4, minutes: 5, seconds: 6), Period(years: 1, months: 2, days: 3, hours: 4, minutes: 5, seconds: 6))
+		XCTAssertEqual(+Period(years: -1, months: -2, days: -3, hours: -4, minutes: -5, seconds: -6), Period(years: -1, months: -2, days: -3, hours: -4, minutes: -5, seconds: -6))
 	}
 
-	@Test func unaryMinus() {
-		#expect(-Period.zero == Period.zero)
-		#expect(-Period(years: 1, months: 2, days: 3, hours: 4, minutes: 5, seconds: 6) == Period(years: -1, months: -2, days: -3, hours: -4, minutes: -5, seconds: -6))
-		#expect(-Period(years: -1, months: -2, days: -3, hours: -4, minutes: -5, seconds: -6) == Period(years: 1, months: 2, days: 3, hours: 4, minutes: 5, seconds: 6))
+	func testUnaryMinus() {
+		XCTAssertEqual(-Period.zero, Period.zero)
+		XCTAssertEqual(-Period(years: 1, months: 2, days: 3, hours: 4, minutes: 5, seconds: 6), Period(years: -1, months: -2, days: -3, hours: -4, minutes: -5, seconds: -6))
+		XCTAssertEqual(-Period(years: -1, months: -2, days: -3, hours: -4, minutes: -5, seconds: -6), Period(years: 1, months: 2, days: 3, hours: 4, minutes: 5, seconds: 6))
 	}
 
 	// MARK: - Addition
 
-	@Test func addition() {
+	func testAddition() {
 		let a = Period(years: 1, months: 2, days: 3)
 		let b = Period(years: 4, months: 5, days: 6)
-		#expect(a + b == Period(years: 5, months: 7, days: 9))
+		XCTAssertEqual(a + b, Period(years: 5, months: 7, days: 9))
 	}
 
-	@Test func additionWithTime() {
+	func testAdditionWithTime() {
 		let a = Period(hours: 1, minutes: 30)
 		let b = Period(hours: 2, minutes: 45)
-		#expect(a + b == Period(hours: 3, minutes: 75))
+		XCTAssertEqual(a + b, Period(hours: 3, minutes: 75))
 	}
 
-	@Test func additionCompoundAssignment() {
+	func testAdditionCompoundAssignment() {
 		var period = Period(years: 1)
 		period += Period(months: 6)
-		#expect(period == Period(years: 1, months: 6))
+		XCTAssertEqual(period, Period(years: 1, months: 6))
 	}
 
-	@Test func additionWithZero() {
+	func testAdditionWithZero() {
 		let period = Period(years: 1, months: 2)
-		#expect(period + .zero == period)
-		#expect(.zero + period == period)
+		XCTAssertEqual(period + .zero, period)
+		XCTAssertEqual(.zero + period, period)
 	}
 
 	// MARK: - Subtraction
 
-	@Test func subtraction() {
+	func testSubtraction() {
 		let a = Period(years: 5, months: 7, days: 9)
 		let b = Period(years: 1, months: 2, days: 3)
-		#expect(a - b == Period(years: 4, months: 5, days: 6))
+		XCTAssertEqual(a - b, Period(years: 4, months: 5, days: 6))
 	}
 
-	@Test func subtractionResultingInNegative() {
+	func testSubtractionResultingInNegative() {
 		let a = Period(years: 1)
 		let b = Period(years: 3)
-		#expect(a - b == Period(years: -2))
+		XCTAssertEqual(a - b, Period(years: -2))
 	}
 
-	@Test func subtractionCompoundAssignment() {
+	func testSubtractionCompoundAssignment() {
 		var period = Period(years: 5, months: 3)
 		period -= Period(months: 1)
-		#expect(period == Period(years: 5, months: 2))
+		XCTAssertEqual(period, Period(years: 5, months: 2))
 	}
 
-	@Test func subtractionFromZero() {
+	func testSubtractionFromZero() {
 		let period = Period(years: 1, months: 2)
-		#expect(.zero - period == -period)
+		XCTAssertEqual(.zero - period, -period)
 	}
 
 	// MARK: - Scalar Multiplication
 
-	@Test func multiplicationByPositive() {
+	func testMultiplicationByPositive() {
 		let period = Period(years: 1, months: 2, days: 3)
-		#expect(period * 2 == Period(years: 2, months: 4, days: 6))
+		XCTAssertEqual(period * 2, Period(years: 2, months: 4, days: 6))
 	}
 
-	@Test func multiplicationByZero() {
+	func testMultiplicationByZero() {
 		let period = Period(years: 1, months: 2, days: 3)
-		#expect(period * 0 == .zero)
+		XCTAssertEqual(period * 0, .zero)
 	}
 
-	@Test func multiplicationByNegative() {
+	func testMultiplicationByNegative() {
 		let period = Period(years: 1, months: 2)
-		#expect(period * -1 == Period(years: -1, months: -2))
+		XCTAssertEqual(period * -1, Period(years: -1, months: -2))
 	}
 
-	@Test func multiplicationCommutative() {
+	func testMultiplicationCommutative() {
 		let period = Period(hours: 5, minutes: 30)
-		#expect(period * 3 == 3 * period)
+		XCTAssertEqual(period * 3, 3 * period)
 	}
 
-	@Test func multiplicationCompoundAssignment() {
+	func testMultiplicationCompoundAssignment() {
 		var period = Period(days: 7)
 		period *= 4
-		#expect(period == Period(days: 28))
+		XCTAssertEqual(period, Period(days: 28))
 	}
 
 	// MARK: - Negation
 
-	@Test func negate() {
+	func testNegate() {
 		var period = Period(years: 1, months: -2, days: 3)
 		period.negate()
-		#expect(period == Period(years: -1, months: 2, days: -3))
+		XCTAssertEqual(period, Period(years: -1, months: 2, days: -3))
 	}
 }
