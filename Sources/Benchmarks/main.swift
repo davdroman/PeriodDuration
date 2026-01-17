@@ -1,5 +1,5 @@
-import Period
 import Benchmark
+import Period
 
 // MARK: - Parsing
 
