@@ -3,11 +3,11 @@ import RegexBuilder
 import Testing
 
 struct ISO8601Tests {
-    @Test(arguments: scenarios)
-    func period(input: String, output: Period?, identical: Bool) throws {
-        #expect((try? Period(input, format: .iso8601)) == output, "input: \(input)")
-        if let output, identical {
-            #expect(output.formatted(.iso8601) == input)
+    @Test(arguments: iso8601TestCases)
+    func parsing(input: String, expected: Period?, roundTrips: Bool) throws {
+        #expect((try? Period(input, format: .iso8601)) == expected, "input: \(input)")
+        if let expected, roundTrips {
+            #expect(expected.formatted(.iso8601) == input)
         }
     }
 

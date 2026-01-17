@@ -1,8 +1,8 @@
 import Period
 
-typealias Scenario = (input: String, output: Period?, identical: Bool)
+typealias ISO8601TestCase = (input: String, expected: Period?, roundTrips: Bool)
 
-let scenarios: [Scenario] = [
+let iso8601TestCases: [ISO8601TestCase] = [
     // MARK: Full
     ("YMWDTHMS", nil, false),
     ("3YMWDTHMS", nil, false), // Y

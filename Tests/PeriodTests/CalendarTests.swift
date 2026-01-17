@@ -2,7 +2,7 @@ import Foundation
 import Period
 import Testing
 
-struct CalendarPeriodTests {
+struct CalendarTests {
     let calendar = Calendar(identifier: .iso8601)
 
     @Test func calendarDateByAddingPeriod() {
