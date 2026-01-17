@@ -15,15 +15,22 @@ let package = Package(
 	],
 	targets: [
 		.target(name: "Period"),
-		.testTarget(name: "PeriodTests", dependencies: [
-			"Period",
-			.product(name: "JSONTesting", package: "swift-json-testing"),
-		]),
+		.testTarget(
+			name: "PeriodTests",
+			dependencies: [
+				"Period",
+				.product(name: "JSONTesting", package: "swift-json-testing"),
+			],
+			path: "Tests"
+		),
 
-		.executableTarget(name: "Benchmarks", dependencies: [
-			"Period",
-			.product(name: "Benchmark", package: "swift-benchmark"),
-		]),
+		.executableTarget(
+			name: "Benchmarks",
+			dependencies: [
+				"Period",
+				.product(name: "Benchmark", package: "swift-benchmark"),
+			]
+		),
 	]
 )
 
