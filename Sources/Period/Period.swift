@@ -23,4 +23,8 @@ public struct Period: Hashable, Sendable {
         self.minutes = minutes
         self.seconds = seconds
     }
+
+    public static var zero: Self {
+        Period()
+    }
 }
