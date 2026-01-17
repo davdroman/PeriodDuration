@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "DB00F1C5-D68F-4BA4-8D49-28D7C4C19CA0",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "performanceAntipatternCheckerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "PeriodTests",
+        "name" : "PeriodTests"
+      }
+    }
+  ],
+  "version" : 1
+}
