@@ -97,5 +97,6 @@ jobs:
         uses: skiptools/swift-android-action@v2
         with:
           swift-version: ${{ matrix.swift }}
+          build-tests: ${{ matrix.swift != '6.0' }}
           run-tests: ${{ matrix.swift != '6.0' }}
           free-disk-space: true
