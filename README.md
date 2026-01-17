@@ -151,6 +151,10 @@ This implementation supports both ISO 8601-1 and ISO 8601-2:
 ## Benchmarks
 
 ```
+MacBook Pro (14-inch, 2021)
+Apple M1 Pro (10 cores, 8 performance and 2 efficiency)
+32 GB Memory
+
 $ swift run -c release Benchmarks
 
 name                   time        std        iterations
