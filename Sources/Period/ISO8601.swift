@@ -11,11 +11,14 @@ extension Period {
             result += value.months.withSuffix("M")
             result += value.days.withSuffix("D")
 
-            guard value.hours != 0 || value.minutes != 0 || value.seconds != 0 else { return result }
+            let hasDatePart = value.years != 0 || value.months != 0 || value.days != 0
+            let hasTimePart = value.hours != 0 || value.minutes != 0 || value.seconds != 0
+
+            guard hasTimePart || !hasDatePart else { return result }
             result += "T"
             result += value.hours.withSuffix("H")
             result += value.minutes.withSuffix("M")
-            result += value.seconds.withSuffix("S")
+            result += hasTimePart ? value.seconds.withSuffix("S") : "0S"
 
             return result
         }
@@ -29,6 +32,12 @@ extension Period {
         struct Parser: Parsing.Parser, Sendable {
             var body: some Parsing.Parser<Substring.UTF8View, Period> {
                 Parse {
+                    // Leading sign (ISO 8601-2)
+                    OneOf {
+                        "-".utf8.map { -1 }
+                        "+".utf8.map { 1 }
+                        Always(1)
+                    }
                     Skip {
                         "P".utf8
                         Not {
@@ -37,37 +46,47 @@ extension Period {
                             End()
                         }
                     }
-                    digitsAndUnit("Y".utf8)
-                    digitsAndUnit("M".utf8)
-                    digitsAndUnit("W".utf8)
-                    digitsAndUnit("D".utf8)
+                    signedDigitsAndUnit("Y".utf8)
+                    signedDigitsAndUnit("M".utf8)
+                    signedDigitsAndUnit("W".utf8)
+                    signedDigitsAndUnit("D".utf8)
                     OneOf {
                         "T".utf8
                         Skip { Rest() }.replaceError(with: ())
                     }
-                    digitsAndUnit("H".utf8)
-                    digitsAndUnit("M".utf8)
-                    digitsAndUnit("S".utf8)
+                    signedDigitsAndUnit("H".utf8)
+                    signedDigitsAndUnit("M".utf8)
+                    signedDigitsAndUnit("S".utf8)
                 }
-                .map { (years, months, weeks, days, hours, minutes, seconds) in
-                    Period(
-                        years: years,
-                        months: months,
-                        days: weeks * 7 + days,
-                        hours: hours,
-                        minutes: minutes,
-                        seconds: seconds
+                .compactMap { (leadingSign, years, months, weeks, days, hours, minutes, seconds) -> Period? in
+                    // Require at least one numeric value
+                    let hasValue = [years, months, weeks, days, hours, minutes, seconds].contains { $0 != nil }
+                    guard hasValue else { return nil }
+                    return Period(
+                        years: (years ?? 0) * leadingSign,
+                        months: (months ?? 0) * leadingSign,
+                        days: ((weeks ?? 0) * 7 + (days ?? 0)) * leadingSign,
+                        hours: (hours ?? 0) * leadingSign,
+                        minutes: (minutes ?? 0) * leadingSign,
+                        seconds: (seconds ?? 0) * leadingSign
                     )
                 }
             }
 
-            func digitsAndUnit(_ unit: String.UTF8View) -> some Parsing.Parser<Substring.UTF8View, Int> {
-                Parse {
-                    Optionally { Digits(1...) }
-                    unit
+            func signedDigitsAndUnit(_ unit: String.UTF8View) -> some Parsing.Parser<Substring.UTF8View, Int?> {
+                OneOf {
+                    Parse {
+                        OneOf {
+                            "-".utf8.map { -1 }
+                            "+".utf8.map { 1 }
+                            Always(1)
+                        }
+                        Digits(1...)
+                        unit
+                    }.map { Optional($0 * $1) }
+                    unit.map { Int?.none }
                 }
-                .map { $0 ?? 0 }
-                .replaceError(with: 0)
+                .replaceError(with: Int?.none)
                 .eraseToAnyParser()
             }
         }

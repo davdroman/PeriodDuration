@@ -14,7 +14,7 @@ let scenarios: [Scenario] = [
     ("YMWDTHM3S", nil, false), // S
     ("3Y3M3W3DT3H3M3S", nil, false), // YMWDHMS
 
-    ("PYMWDTHMS", Period(), false),
+    ("PYMWDTHMS", nil, false),
     ("P3YMWDTHMS", Period(years: 3), false), // Y
     ("PY3MWDTHMS", Period(months: 3), false), // M
     ("PYM3WDTHMS", Period(days: 21), false), // W
@@ -39,7 +39,7 @@ let scenarios: [Scenario] = [
     ("Y3M3W3D", nil, false), // MWD
     ("3Y3M3W3D", nil, false), // YMWD
 
-    ("PYMWD", Period(), false),
+    ("PYMWD", nil, false),
     ("P3YMWD", Period(years: 3), false), // Y
     ("PY3MWD", Period(months: 3), false), // M
     ("PYM3WD", Period(days: 21), false), // W
@@ -57,25 +57,25 @@ let scenarios: [Scenario] = [
     ("Y", nil, false),
     ("3Y", nil, false),
 
-    ("PY", Period(), false),
+    ("PY", nil, false),
     ("P3Y", Period(years: 3), false),
 
     ("M", nil, false),
     ("3M", nil, false),
 
-    ("PM", Period(), false),
+    ("PM", nil, false),
     ("P3M", Period(months: 3), false),
 
     ("W", nil, false),
     ("3W", nil, false),
 
-    ("PW", Period(), false),
+    ("PW", nil, false),
     ("P3W", Period(days: 21), false),
 
     ("D", nil, false),
     ("3D", nil, false),
 
-    ("PD", Period(), false),
+    ("PD", nil, false),
     ("P3D", Period(days: 3), false),
 
     // MARK: Duration Full
@@ -88,7 +88,7 @@ let scenarios: [Scenario] = [
     ("T3HM3S", nil, false), // HS
     ("T3H3M3S", nil, false), // HMS
 
-    ("PTHMS", Period(), false),
+    ("PTHMS", nil, false),
     ("PT3HMS", Period(hours: 3), false), // H
     ("PTH3MS", Period(minutes: 3), false), // M
     ("PTHM3S", Period(seconds: 3), false), // S
@@ -103,8 +103,8 @@ let scenarios: [Scenario] = [
     ("3H", nil, false),
     ("T3H", nil, false),
 
-    ("PT", Period(), false),
-    ("PTH", Period(), false),
+    ("PT", nil, false),
+    ("PTH", nil, false),
     ("PT3H", Period(hours: 3), true),
 
     ("M", nil, false),
@@ -112,7 +112,7 @@ let scenarios: [Scenario] = [
     ("3M", nil, false),
     ("T3M", nil, false),
 
-    ("PTM", Period(), false),
+    ("PTM", nil, false),
     ("PT3M", Period(minutes: 3), true),
 
     ("S", nil, false),
@@ -120,7 +120,7 @@ let scenarios: [Scenario] = [
     ("3S", nil, false),
     ("T3S", nil, false),
 
-    ("PTS", Period(), false),
+    ("PTS", nil, false),
     ("PT3S", Period(seconds: 3), true),
 
     // MARK: Edge Cases
