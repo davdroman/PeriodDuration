@@ -153,8 +153,17 @@ This implementation supports both ISO 8601-1 and ISO 8601-2:
 ```
 $ swift run -c release Benchmarks
 
-name         time        std        iterations
-----------------------------------------------
-parse Period 2333.000 ns ±  59.69 %     566588
-print Period 1292.000 ns ±  51.95 %    1000000
+name                   time        std        iterations
+--------------------------------------------------------
+parse P3Y              1834.000 ns ±  69.20 %     702009
+parse PT5H30M          2125.000 ns ±  64.31 %     612154
+parse P1Y2M3DT4H5M6S   2416.000 ns ±  58.43 %     538787
+parse P3Y3M3W3DT3H3M3S 2375.000 ns ±  61.90 %     554537
+parse -P1Y2M           1959.000 ns ±  67.23 %     658447
+parse P-1Y2M-3D        2041.000 ns ±  65.14 %     642590
+parse PT0S             2084.000 ns ±  63.98 %     624773
+format P3Y              334.000 ns ±  92.43 %    1000000
+format PT5H30M          583.000 ns ±  82.43 %    1000000
+format P1Y2M3DT4H5M6S  1292.000 ns ±  57.21 %    1000000
+format .zero            167.000 ns ± 152.35 %    1000000
 ```
