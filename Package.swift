@@ -16,12 +16,12 @@ let package = Package(
 	targets: [
 		.target(name: "Period"),
 		.testTarget(name: "PeriodTests", dependencies: [
-			.target(name: "Period"),
+			"Period",
 			.product(name: "JSONTesting", package: "swift-json-testing"),
 		]),
 
 		.executableTarget(name: "Benchmarks", dependencies: [
-			.target(name: "Period"),
+			"Period",
 			.product(name: "Benchmark", package: "swift-benchmark"),
 		]),
 	]
