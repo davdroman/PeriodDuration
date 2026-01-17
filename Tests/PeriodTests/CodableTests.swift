@@ -19,7 +19,7 @@ struct CodableTests {
         } catch let error as DecodingError where output == nil {
             switch error {
             case .dataCorrupted(let context):
-                #expect(context.debugDescription == "Invalid Period ISO 8601 value \(json)")
+                #expect(context.debugDescription == "Invalid ISO 8601 duration \(json)")
             default:
                 Issue.record("Unexpected `DecodingError` received: '\(error)' - \(message)")
             }
