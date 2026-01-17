@@ -5,14 +5,13 @@ import Testing
 struct CalendarTests {
 	let calendar = Calendar(identifier: .iso8601)
 
-	@Test func calendarDateByAddingPeriod() {
+	@Test func calendarDateByAddingPeriod() throws {
 		let date = Date(timeIntervalSinceReferenceDate: 0) // 2001-01-01 00:00:00 UTC
 		let period = Period(years: 1, months: 2, days: 3, hours: 4, minutes: 5, seconds: 6)
 
-		let result = calendar.date(byAdding: period, to: date)
+		let result = try #require(calendar.date(byAdding: period, to: date))
 
-		#expect(result != nil)
-		let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: result!)
+		let components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: result)
 		#expect(components.year == 2002)
 		#expect(components.month == 3)
 		#expect(components.day == 4)
@@ -21,9 +20,9 @@ struct CalendarTests {
 		#expect(components.second == 6)
 	}
 
-	@Test func calendarPeriodFromDates() {
+	@Test func calendarPeriodFromDates() throws {
 		let start = Date(timeIntervalSinceReferenceDate: 0) // 2001-01-01 00:00:00 UTC
-		let end = calendar.date(byAdding: DateComponents(year: 1, month: 2, day: 3, hour: 4, minute: 5, second: 6), to: start)!
+		let end = try #require(calendar.date(byAdding: DateComponents(year: 1, month: 2, day: 3, hour: 4, minute: 5, second: 6), to: start))
 
 		let period = calendar.period(from: start, to: end)
 
@@ -35,9 +34,9 @@ struct CalendarTests {
 		#expect(period.seconds == 6)
 	}
 
-	@Test func calendarPeriodFromDatesNegative() {
+	@Test func calendarPeriodFromDatesNegative() throws {
 		let start = Date(timeIntervalSinceReferenceDate: 0)
-		let end = calendar.date(byAdding: DateComponents(year: -1, month: -2, day: -3), to: start)!
+		let end = try #require(calendar.date(byAdding: DateComponents(year: -1, month: -2, day: -3), to: start))
 
 		let period = calendar.period(from: start, to: end)
 
