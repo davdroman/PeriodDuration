@@ -46,8 +46,10 @@ extension Period {
 
 			static func parse(_ string: String) -> Period? {
 				let range = NSRange(string.startIndex..., in: string)
-				guard let match = regex.firstMatch(in: string, options: .anchored, range: range),
-					  match.range.length == string.utf16.count else {
+				guard
+					let match = regex.firstMatch(in: string, options: .anchored, range: range),
+					match.range.length == string.utf16.count
+				else {
 					return nil
 				}
 				return period(from: match, in: string)
@@ -56,8 +58,12 @@ extension Period {
 			static func period(from match: NSTextCheckingResult, in string: String) -> Period? {
 				func extractInt(at index: Int) -> Int? {
 					let range = match.range(at: index)
-					guard range.location != NSNotFound,
-						  let swiftRange = Range(range, in: string) else { return nil }
+					guard
+						range.location != NSNotFound,
+						let swiftRange = Range(range, in: string)
+					else {
+						return nil
+					}
 					return Int(string[swiftRange])
 				}
 
@@ -75,7 +81,8 @@ extension Period {
 				let minutes = extractInt(at: 7)
 				let seconds = extractInt(at: 8)
 
-				guard years != nil || months != nil || weeks != nil || days != nil ||
+				guard
+					years != nil || months != nil || weeks != nil || days != nil ||
 					hours != nil || minutes != nil || seconds != nil
 				else {
 					return nil
@@ -140,8 +147,9 @@ extension Period.ISO8601FormatStyle: CustomConsumingRegexComponent {
 		let substring = String(input[index..<bounds.upperBound])
 		let range = NSRange(substring.startIndex..., in: substring)
 
-		guard let match = Parser.regex.firstMatch(in: substring, options: .anchored, range: range),
-		      let period = Parser.period(from: match, in: substring)
+		guard
+			let match = Parser.regex.firstMatch(in: substring, options: .anchored, range: range),
+			let period = Parser.period(from: match, in: substring)
 		else {
 			return nil
 		}
