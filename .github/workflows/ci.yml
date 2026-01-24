@@ -15,7 +15,23 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  macos:
+  lint:
+    name: Lint
+    runs-on: macos-latest
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v5
+
+      - name: Install SwiftFormat
+        run: |
+          brew unlink swiftformat
+          brew install swiftformat --HEAD
+
+      - name: SwiftFormat Lint
+        run: swiftformat --lint . --reporter github-actions-log
+
+  apple:
+    if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
     name: ${{ matrix.platform }} (Swift ${{ matrix.swift }})
     runs-on: macos-15
     strategy:
@@ -23,9 +39,11 @@ jobs:
       matrix:
         platform:
           - iOS
+          - mac-catalyst
           - macOS
           - tvOS
           - watchOS
+          - visionOS
         swift:
           - "6.0"
           - "6.1"
@@ -34,33 +52,35 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v5
 
-      - name: Disable Macro Fingerprint Validation
-        run: |
-          defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
-          defaults write com.apple.dt.Xcode IDESkipPackagePluginFingerprintValidatation -bool YES
-
       - name: Select Xcode version
         uses: mxcl/xcodebuild@v3
         with:
           swift: ~${{ matrix.swift }}
           action: none
+          verbosity: xcbeautify
 
-      - name: List Runtimes
-        run: xcrun simctl list runtimes
+      - if: ${{ matrix.platform != 'macOS' && matrix.platform != 'mac-catalyst' }}
+        name: Initialize Simulator Service
+        run: xcrun simctl list
 
-      - if: matrix.platform != 'macOS'
-        name: Download Required Runtimes
-        run: xcodebuild -downloadPlatform ${{ matrix.platform }}
+      - if: ${{ matrix.platform != 'macOS' && matrix.platform != 'mac-catalyst' }}
+        name: Download Default Runtime
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 15
+          max_attempts: 3
+          command: xcodebuild -downloadPlatform ${{ matrix.platform }}
 
-      - name: Test Library
+      - name: Run Tests
         uses: mxcl/xcodebuild@v3
         with:
-          swift: ~${{ matrix.swift }}
-          action: ${{ matrix.action }}
           platform: ${{ matrix.platform }}
-          scheme: Period
+          swift: ~${{ matrix.swift }}
+          action: test
+          verbosity: xcbeautify
 
   linux:
+    if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
     name: Linux (Swift ${{ matrix.swift }})
     runs-on: ubuntu-latest
     strategy:
@@ -76,7 +96,7 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v5
 
-      - name: Test Library
+      - name: Run Tests
         run: swift test
 
   android:
