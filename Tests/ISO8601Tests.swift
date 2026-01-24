@@ -4,7 +4,7 @@ import Testing
 
 struct ISO8601Tests {
 	@Test(arguments: iso8601TestCases)
-	func parsing(input: String, expected: Period?, roundTrips: Bool) throws {
+	func parsing(input: String, expected: Period?, roundTrips: Bool) {
 		#expect((try? Period(input, format: .iso8601)) == expected, "input: \(input)")
 		if let expected, roundTrips {
 			#expect(expected.formatted(.iso8601) == input)
