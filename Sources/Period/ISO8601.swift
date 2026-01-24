@@ -61,11 +61,10 @@ extension Period {
 					return Int(string[swiftRange])
 				}
 
-				let leadingSign: Int
-				if let signRange = Range(match.range(at: 1), in: string) {
-					leadingSign = string[signRange] == "-" ? -1 : 1
+				let leadingSign: Int = if let signRange = Range(match.range(at: 1), in: string) {
+					string[signRange] == "-" ? -1 : 1
 				} else {
-					leadingSign = 1
+					1
 				}
 
 				let years = extractInt(at: 2)
@@ -77,7 +76,8 @@ extension Period {
 				let seconds = extractInt(at: 8)
 
 				guard years != nil || months != nil || weeks != nil || days != nil ||
-					  hours != nil || minutes != nil || seconds != nil else {
+					hours != nil || minutes != nil || seconds != nil
+				else {
 					return nil
 				}
 
@@ -118,12 +118,12 @@ extension Period {
 	}
 }
 
-fileprivate extension Numeric {
-	func withSuffix(_ c: Character) -> String {
+extension Numeric {
+	fileprivate func withSuffix(_ c: Character) -> String {
 		if self == .zero {
-			return ""
+			""
 		} else {
-			return "\(self)\(c)"
+			"\(self)\(c)"
 		}
 	}
 }
@@ -141,7 +141,8 @@ extension Period.ISO8601FormatStyle: CustomConsumingRegexComponent {
 		let range = NSRange(substring.startIndex..., in: substring)
 
 		guard let match = Parser.regex.firstMatch(in: substring, options: .anchored, range: range),
-			  let period = Parser.period(from: match, in: substring) else {
+		      let period = Parser.period(from: match, in: substring)
+		else {
 			return nil
 		}
 

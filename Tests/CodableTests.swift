@@ -18,7 +18,7 @@ struct CodableTests {
 			try XCTAssertJSONDecoding(json, expected, message)
 		} catch let error as DecodingError where expected == nil {
 			switch error {
-			case .dataCorrupted(let context):
+			case let .dataCorrupted(context):
 				#expect(context.debugDescription == "Invalid ISO 8601 duration \(json)")
 			default:
 				Issue.record("Unexpected `DecodingError` received: '\(error)' - \(message)")

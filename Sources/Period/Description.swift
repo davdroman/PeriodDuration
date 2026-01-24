@@ -11,13 +11,13 @@ extension Period: CustomStringConvertible {
 			self.seconds.nilIfZero.map { "\($0) second\($0 == 1 ? "" : "s")" },
 		]
 		.lazy
-		.compactMap { $0 }
+		.compactMap(\.self)
 		.joined(separator: ", ")
 	}
 }
 
-fileprivate extension Numeric {
-	var nilIfZero: Self? {
+extension Numeric {
+	fileprivate var nilIfZero: Self? {
 		self == .zero ? nil : self
 	}
 }
