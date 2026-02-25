@@ -1,4 +1,4 @@
-import Foundation
+public import Foundation
 
 extension Period {
 	public struct ISO8601FormatStyle: ParseableFormatStyle, ParseStrategy {
@@ -41,7 +41,7 @@ extension Period {
 
 		enum Parser {
 			static let regex = try! NSRegularExpression(
-				pattern: #"([+-])?P(?:(-?\d+)?Y)?(?:(-?\d+)?M)?(?:(-?\d+)?W)?(?:(-?\d+)?D)?(?:T(?:(-?\d+)?H)?(?:(-?\d+)?M)?(?:(-?\d+)?S)?)?"#
+				pattern: #"([+-])?P(?:(-?\d+)?Y)?(?:(-?\d+)?M)?(?:(-?\d+)?W)?(?:(-?\d+)?D)?(?:T(?:(-?\d+)?H)?(?:(-?\d+)?M)?(?:(-?\d+)?S)?)?"#,
 			)
 
 			static func parse(_ string: String) -> Period? {
@@ -94,7 +94,7 @@ extension Period {
 					days: ((weeks ?? 0) * 7 + (days ?? 0)) * leadingSign,
 					hours: (hours ?? 0) * leadingSign,
 					minutes: (minutes ?? 0) * leadingSign,
-					seconds: (seconds ?? 0) * leadingSign
+					seconds: (seconds ?? 0) * leadingSign,
 				)
 			}
 		}

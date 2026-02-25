@@ -12,7 +12,7 @@ extension Period {
 			days: -rhs.days,
 			hours: -rhs.hours,
 			minutes: -rhs.minutes,
-			seconds: -rhs.seconds
+			seconds: -rhs.seconds,
 		)
 	}
 
@@ -25,7 +25,7 @@ extension Period {
 			days: lhs.days + rhs.days,
 			hours: lhs.hours + rhs.hours,
 			minutes: lhs.minutes + rhs.minutes,
-			seconds: lhs.seconds + rhs.seconds
+			seconds: lhs.seconds + rhs.seconds,
 		)
 	}
 
@@ -42,7 +42,7 @@ extension Period {
 			days: lhs.days - rhs.days,
 			hours: lhs.hours - rhs.hours,
 			minutes: lhs.minutes - rhs.minutes,
-			seconds: lhs.seconds - rhs.seconds
+			seconds: lhs.seconds - rhs.seconds,
 		)
 	}
 
@@ -59,7 +59,7 @@ extension Period {
 			days: lhs.days * rhs,
 			hours: lhs.hours * rhs,
 			minutes: lhs.minutes * rhs,
-			seconds: lhs.seconds * rhs
+			seconds: lhs.seconds * rhs,
 		)
 	}
 

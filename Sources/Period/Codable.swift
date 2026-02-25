@@ -1,7 +1,7 @@
 import Foundation
 
 extension Period: Codable {
-	public init(from decoder: Decoder) throws {
+	public init(from decoder: any Decoder) throws {
 		let container = try decoder.singleValueContainer()
 		let rawValue = try container.decode(String.self)
 		do {
@@ -9,12 +9,12 @@ extension Period: Codable {
 		} catch {
 			throw DecodingError.dataCorruptedError(
 				in: container,
-				debugDescription: "Invalid ISO 8601 duration \"\(rawValue)\""
+				debugDescription: "Invalid ISO 8601 duration \"\(rawValue)\"",
 			)
 		}
 	}
 
-	public func encode(to encoder: Encoder) throws {
+	public func encode(to encoder: any Encoder) throws {
 		var container = encoder.singleValueContainer()
 		try container.encode(self.formatted(.iso8601))
 	}
