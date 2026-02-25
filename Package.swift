@@ -1,4 +1,4 @@
-// swift-tools-version:6.0
+// swift-tools-version: 6.1
 
 import PackageDescription
 
@@ -6,8 +6,10 @@ let package = Package(
 	name: "Period",
 	platforms: [
 		.iOS(.v15),
+		.macCatalyst(.v15),
 		.macOS(.v12),
 		.tvOS(.v15),
+		.visionOS(.v1),
 		.watchOS(.v8),
 	],
 	products: [
@@ -34,7 +36,15 @@ let package = Package(
 	]
 )
 
-package.dependencies = [
+package.dependencies += [
 	.package(url: "https://github.com/google/swift-benchmark", from: "0.1.2"),
 	.package(url: "https://github.com/davdroman/swift-json-testing", from: "0.2.0"),
 ]
+
+for target in package.targets {
+	target.swiftSettings = target.swiftSettings ?? []
+	target.swiftSettings? += [
+		.enableUpcomingFeature("ExistentialAny"),
+		.enableUpcomingFeature("InternalImportsByDefault"),
+	]
+}

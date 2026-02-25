@@ -1,4 +1,4 @@
-import Foundation
+public import Foundation
 
 extension Period {
 	public struct ISO8601FormatStyle: ParseableFormatStyle, ParseStrategy {

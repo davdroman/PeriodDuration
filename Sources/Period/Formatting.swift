@@ -1,5 +1,5 @@
 #if canImport(Darwin)
-import Foundation
+public import Foundation
 
 extension Period {
 	public struct FormatStyle: Foundation.FormatStyle, Sendable {

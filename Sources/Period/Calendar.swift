@@ -1,4 +1,4 @@
-import Foundation
+public import Foundation
 
 extension Calendar {
 	public func date(byAdding period: Period, to date: Date, wrappingComponents: Bool = false) -> Date? {

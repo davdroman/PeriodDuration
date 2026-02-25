@@ -34,7 +34,7 @@ jobs:
   apple:
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.title, '[skip ci]')
     name: ${{ matrix.platform }} (Swift ${{ matrix.swift }})
-    runs-on: macos-15
+    runs-on: ${{ matrix.runner }}
     strategy:
       fail-fast: false
       matrix:
@@ -46,9 +46,13 @@ jobs:
           - watchOS
           - visionOS
         swift:
-          - "6.0"
           - "6.1"
           - "6.2"
+        include:
+          - swift: "6.1"
+            runner: macos-15
+          - swift: "6.2"
+            runner: macos-26
     steps:
       - name: Git Checkout
         uses: actions/checkout@v5
@@ -88,7 +92,6 @@ jobs:
       fail-fast: false
       matrix:
         swift:
-          - "6.0"
           - "6.1"
           - "6.2"
     container:
@@ -107,7 +110,6 @@ jobs:
       fail-fast: false
       matrix:
         swift:
-          - "6.0"
           - "6.1"
           - "6.2"
     steps:
@@ -118,6 +120,4 @@ jobs:
         uses: skiptools/swift-android-action@v2
         with:
           swift-version: ${{ matrix.swift }}
-          build-tests: ${{ matrix.swift != '6.0' }}
-          run-tests: ${{ matrix.swift != '6.0' }}
           free-disk-space: true
