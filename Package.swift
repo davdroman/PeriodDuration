@@ -23,7 +23,7 @@ let package = Package(
 				"Period",
 				.product(name: "JSONTesting", package: "swift-json-testing"),
 			],
-			path: "Tests"
+			path: "Tests",
 		),
 
 		.executableTarget(
@@ -31,9 +31,9 @@ let package = Package(
 			dependencies: [
 				"Period",
 				.product(name: "Benchmark", package: "swift-benchmark"),
-			]
+			],
 		),
-	]
+	],
 )
 
 package.dependencies += [

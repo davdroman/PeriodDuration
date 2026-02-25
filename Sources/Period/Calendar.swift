@@ -13,7 +13,7 @@ extension Calendar {
 			days: components.day ?? 0,
 			hours: components.hour ?? 0,
 			minutes: components.minute ?? 0,
-			seconds: components.second ?? 0
+			seconds: components.second ?? 0,
 		)
 	}
 }
@@ -26,7 +26,7 @@ extension DateComponents {
 			day: period.days,
 			hour: period.hours,
 			minute: period.minutes,
-			second: period.seconds
+			second: period.seconds,
 		)
 	}
 }

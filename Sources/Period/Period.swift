@@ -14,7 +14,7 @@ public struct Period: Hashable, Sendable {
 		days: Int = 0,
 		hours: Int = 0,
 		minutes: Int = 0,
-		seconds: Int = 0
+		seconds: Int = 0,
 	) {
 		self.years = years
 		self.months = months

@@ -9,7 +9,7 @@ extension Period: Codable {
 		} catch {
 			throw DecodingError.dataCorruptedError(
 				in: container,
-				debugDescription: "Invalid ISO 8601 duration \"\(rawValue)\""
+				debugDescription: "Invalid ISO 8601 duration \"\(rawValue)\"",
 			)
 		}
 	}
