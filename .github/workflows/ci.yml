@@ -97,7 +97,7 @@ jobs:
         swift:
           - "6.1"
           - "6.2"
-          # TODO: Add "6.3" when swift:6.3 Docker image is available
+          - "6.3"
     container:
       image: swift:${{ matrix.swift }}
     steps:
@@ -116,7 +116,7 @@ jobs:
         swift:
           - "6.1"
           - "6.2"
-          # TODO: Add "6.3" when swift:6.3 Docker image is available
+          - "6.3"
     steps:
       - name: Git Checkout
         uses: actions/checkout@v5
